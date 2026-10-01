@@ -1,7 +1,18 @@
 // Demos player, name-on-the-record, the song questionnaire, and the email signup.
 // Both forms post to FormSubmit, which emails alejandro@ojedaworks.com.
 (function () {
-  const ENDPOINT = "https://formsubmit.co/ajax/alejandro@ojedaworks.com";
+  // Paste the Google Apps Script web-app URL here once it's deployed (see setup/SETUP.md).
+  // While it's empty, forms fall back to FormSubmit (no welcome email to the customer).
+  const APPS_SCRIPT_URL = "";
+  const FORMSUBMIT = "https://formsubmit.co/ajax/alejandro@ojedaworks.com";
+  // Apps Script needs text/plain (no CORS preflight); FormSubmit takes JSON.
+  async function send(body) {
+    const url = APPS_SCRIPT_URL || FORMSUBMIT;
+    const headers = APPS_SCRIPT_URL ? { "Content-Type": "text/plain;charset=utf-8" } : { "Content-Type": "application/json", Accept: "application/json" };
+    const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(body) });
+    const json = await res.json().catch(() => ({}));
+    if (!res.ok || String(json.success) !== "true") throw new Error(json.message || res.status);
+  }
   const lang = document.documentElement.lang.startsWith("es") ? "es" : "en";
   const T = {
     en: {
@@ -252,17 +263,17 @@
       const payload = Object.assign({}, data, {
         _subject: T.subjectSong + (data.recipient_name ? `: ${data.recipient_name}` : ""),
         _template: "table",
+        form: "song",
         _honey: $("[name=_honey]", form).value,
         site_language: lang
       });
       Object.keys(payload).forEach((k) => { if (Array.isArray(payload[k])) payload[k] = payload[k].join(", "); });
       try {
-        const res = await fetch(ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(payload) });
-        const json = await res.json().catch(() => ({}));
-        if (!res.ok || String(json.success) !== "true") throw new Error(json.message || res.status);
+        await send(payload);
         store.del(KEY);
         form.hidden = true;
         $("#w-done").hidden = false;
+        if (APPS_SCRIPT_URL) $("#w-done .welcome-note").hidden = false;
         $("#w-done h3").focus();
         dots.forEach((d) => d.classList.add("on"));
       } catch (ex) {
@@ -285,12 +296,7 @@
       email.removeAttribute("aria-invalid");
       const btn = $("button", f); btn.disabled = true;
       try {
-        const res = await fetch(ENDPOINT, {
-          method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-          body: JSON.stringify({ email: email.value, list: "demos", site_language: lang, _subject: T.subjectList, _honey: $("[name=_honey]", f).value })
-        });
-        const json = await res.json().catch(() => ({}));
-        if (!res.ok || String(json.success) !== "true") throw new Error();
+        await send({ form: "signup", email: email.value, list: "demos", site_language: lang, _subject: T.subjectList, _honey: $("[name=_honey]", f).value });
         f.reset(); msg.textContent = T.signupOk;
       } catch (ex) { msg.textContent = T.signupFail; }
       btn.disabled = false;
