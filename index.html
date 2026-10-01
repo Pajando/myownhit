@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Own Hit | A custom song about someone you love</title>
+<meta name="description" content="Tell us about the person. We write and produce a real song about them, in English, Spanish, or both. Birthdays, weddings, quinceañeras, tributes.">
+<link rel="canonical" href="https://myownhit.com/">
+<link rel="alternate" hreflang="en" href="https://myownhit.com/">
+<link rel="alternate" hreflang="es" href="https://myownhit.com/es.html">
+<link rel="alternate" hreflang="x-default" href="https://myownhit.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Own Hit | A custom song about someone you love">
+<meta property="og:description" content="Tell us the story. Hear it as a song. In English, Spanish, or both.">
+<meta property="og:url" content="https://myownhit.com/">
+<meta name="theme-color" content="#16133d">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e4007c'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23fff4e6'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,500&family=Shrikhand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Service",
+  "name":"My Own Hit custom songs",
+  "serviceType":"Custom song writing and production",
+  "description":"Personal songs written and produced from the customer's story, in English, Spanish, or both.",
+  "areaServed":"US",
+  "availableLanguage":["English","Spanish"],
+  "provider":{"@type":"Organization","name":"Ojeda Works","url":"https://ojedaworks.com","email":"alejandro@ojedaworks.com"}
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="./">My Own Hit</a>
+    <nav aria-label="Main">
+      <a class="hide-sm" href="#listen">Listen</a>
+      <a class="hide-sm" href="#examples">Examples</a>
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="lang" href="es.html" hreflang="es" lang="es">Español</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" style="padding:0">
+    <div class="wrap">
+      <div>
+        <h1>Their story, made into their song.</h1>
+        <p class="lede">Tell us about the person. We write and produce a real song about them, in English, Spanish, or both. For birthdays, weddings, quinceañeras, and the people who deserve a song while they can still hear it.</p>
+        <div class="namebox">
+          <label for="hero-name">Who's the song for?</label>
+          <div class="row">
+            <input id="hero-name" type="text" placeholder="Their name" autocomplete="off" maxlength="28">
+            <a id="hero-go" class="btn btn-gold" href="#start">Start their song</a>
+          </div>
+          <p class="hint">Type a name and watch the record.</p>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="fallback" aria-hidden="true"><span>Their song</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="listen" class="band">
+    <div class="wrap">
+      <h2>Listen</h2>
+      <p class="sub">Real songs made the same way yours would be. Press play and the record spins.</p>
+      <div class="side">
+        <ol id="tracks" class="tracks" aria-label="Demo songs"></ol>
+        <div class="player">
+          <p class="now">Now playing</p>
+          <p class="title" id="now-title">Pick a track</p>
+          <div class="ctrl">
+            <button id="play" class="btn btn-gold play" type="button" aria-label="Play"></button>
+            <div id="bar" class="bar" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100"><i></i></div>
+            <span id="time" class="time">0:00 / 0:00</span>
+          </div>
+          <p id="player-note" class="note" aria-live="polite"></p>
+          <audio id="audio" preload="none"></audio>
+        </div>
+      </div>
+      <div style="margin-top:3rem">
+        <h3 style="margin:0 0 .4rem;font-size:1.2rem">Get new demos by email</h3>
+        <p class="sub" style="margin-bottom:1rem;font-size:1rem">One email when a new song is up. Nothing else.</p>
+        <form class="signup" novalidate>
+          <label class="hp">Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+          <input type="email" name="email" placeholder="you@email.com" aria-label="Your email" autocomplete="email" required>
+          <button class="btn btn-gold" type="submit">Send me demos</button>
+        </form>
+        <p class="signup-msg" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="examples">
+    <div class="wrap">
+      <h2>What it can sound like</h2>
+      <p class="sub">A few lines for different occasions, so you can picture yours. Every song uses the real names and moments you send us.</p>
+      <div class="lyrics">
+        <article class="lyric">
+          <h3>A 60th birthday</h3>
+          <p class="style">Cumbia, in Spanish</p>
+          <blockquote>Llegaron los sesenta y la casa está llena,
+Rosa en la cocina como cada Nochebuena.
+Los nietos le cantan, la familia entera,
+que suene la cumbia, que nadie se vaya.</blockquote>
+        </article>
+        <article class="lyric">
+          <h3>A wedding</h3>
+          <p class="style">Acoustic pop, in English</p>
+          <blockquote>You spilled your coffee on my shoes in 2014,
+said sorry seven times, I kept count.
+Now your name's on the mailbox next to mine,
+and I'd trade every pair of shoes to have you around.</blockquote>
+        </article>
+        <article class="lyric">
+          <h3>A quinceañera</h3>
+          <p class="style">Balada, in Spanish</p>
+          <blockquote>Ayer jugabas con muñecas en el patio,
+hoy bailas el vals con tu papá.
+Valeria, quince años de luz,
+la niña de la casa ya sabe volar.</blockquote>
+        </article>
+        <article class="lyric">
+          <h3>A tribute</h3>
+          <p class="style">Country, in English</p>
+          <blockquote>He kept a wrench in every pocket of that coat,
+fixed half the trucks on Second Street for free.
+Dad, the radio's still on your station,
+and every song it plays sounds like you to me.</blockquote>
+        </article>
+        <article class="lyric">
+          <h3>A life story</h3>
+          <p class="style">Corrido, in Spanish</p>
+          <blockquote>Del rancho de Jalisco salió con una maleta,
+Don Chuy cruzó la línea con fe y la frente quieta.
+Hoy tiene su negocio y la familia completa,
+y aquí va su corrido pa' que nadie lo olvide.</blockquote>
+        </article>
+      </div>
+      <p class="fine">These sample lines were written for this page. Names and details are made up. Want to hear a full example in your style before you commit? Check the box in the form and we'll send one.</p>
+    </div>
+  </section>
+
+  <section id="how" class="band">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="sub">No calls unless you want one.</p>
+      <ol class="steps">
+        <li><h3>You tell us the story</h3><p>The form below asks for the details that make a song personal: names, moments, the phrase they always say.</p></li>
+        <li><h3>You get the price first</h3><p>A reply from Alejandro with the price and timeline before anything is made. No subscriptions.</p></li>
+        <li><h3>We write and produce it</h3><p>Lyrics from your details, produced in the style you picked, checked line by line by a person.</p></li>
+        <li><h3>You get the song</h3><p>The finished track by email. Yours to keep, play at the party, and share.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="wrap">
+      <h2>Start your song</h2>
+      <p class="sub">Takes about five minutes. Your answers save on this device as you go, so you can come back.</p>
+
+      <div class="wizard">
+        <ol class="progress" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
+
+        <form id="song-form" novalidate>
+          <label class="hp">Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+
+          <div class="wstep">
+            <p class="stepname">Step 1 of 5</p>
+            <h3>Who is it for?</h3>
+            <div class="two">
+              <div class="field"><label for="f-recipient">Their name</label><input id="f-recipient" name="recipient_name" type="text" required data-q="Song is for" maxlength="60"></div>
+              <div class="field"><label for="f-rel">Who are they to you?</label><input id="f-rel" name="relationship" type="text" placeholder="My mom, my wife, my best friend" data-q="Relationship"></div>
+            </div>
+            <div class="two">
+              <div class="field"><label for="f-occ">The occasion</label>
+                <select id="f-occ" name="occasion" required data-q="Occasion">
+                  <option value="">Choose one</option>
+                  <option>Birthday</option><option>Wedding or anniversary</option><option>Quinceañera</option>
+                  <option>Proposal</option><option>Tribute or in memory</option><option>Graduation</option>
+                  <option>Just because</option><option>For my business</option><option>Something else</option>
+                </select></div>
+              <div class="field"><label for="f-date">When do you need it?<span class="help">Leave blank if there's no rush.</span></label><input id="f-date" name="needed_by" type="date" data-q="Needed by"></div>
+            </div>
+          </div>
+
+          <div class="wstep" hidden>
+            <p class="stepname">Step 2 of 5</p>
+            <h3>Tell us about them</h3>
+            <div class="field"><label for="f-story">Who are they, and what's your story together?<span class="help">The more real detail, the more it sounds like it could only be about them.</span></label>
+              <textarea id="f-story" name="story" required data-q="Their story" placeholder="How you met, what they're like, what they mean to you"></textarea></div>
+            <div class="field"><label for="f-moments">Moments that have to be in the song</label>
+              <textarea id="f-moments" name="moments" data-q="Must-have moments" placeholder="The road trip, the first apartment, the day the baby was born"></textarea></div>
+            <div class="field"><label for="f-words">Names, nicknames, or things they always say</label>
+              <input id="f-words" name="words_to_include" type="text" data-q="Words to include" placeholder="&quot;Mija,&quot; the dog's name, &quot;ya merito&quot;"></div>
+            <div class="field"><label for="f-avoid">Anything to keep out?</label>
+              <input id="f-avoid" name="avoid" type="text" data-q="Keep out" placeholder="Topics, names, or words to skip"></div>
+          </div>
+
+          <div class="wstep" hidden>
+            <p class="stepname">Step 3 of 5</p>
+            <h3>How should it sound?</h3>
+            <fieldset class="field chips" data-required data-q="Language">
+              <legend class="lbl">Language</legend>
+              <label><input type="radio" name="language" value="English"><span>English</span></label>
+              <label><input type="radio" name="language" value="Spanish"><span>Spanish</span></label>
+              <label><input type="radio" name="language" value="Both"><span>Both</span></label>
+            </fieldset>
+            <fieldset class="field chips" data-q="Style">
+              <legend class="lbl">Style<span class="help">Pick any. Not sure? Choose "You pick."</span></legend>
+              <label><input type="checkbox" name="style" value="Corrido"><span>Corrido</span></label>
+              <label><input type="checkbox" name="style" value="Ranchera"><span>Ranchera</span></label>
+              <label><input type="checkbox" name="style" value="Banda"><span>Banda</span></label>
+              <label><input type="checkbox" name="style" value="Cumbia"><span>Cumbia</span></label>
+              <label><input type="checkbox" name="style" value="Balada"><span>Balada</span></label>
+              <label><input type="checkbox" name="style" value="Pop"><span>Pop</span></label>
+              <label><input type="checkbox" name="style" value="R&B"><span>R&amp;B</span></label>
+              <label><input type="checkbox" name="style" value="Country"><span>Country</span></label>
+              <label><input type="checkbox" name="style" value="Hip-hop"><span>Hip-hop</span></label>
+              <label><input type="checkbox" name="style" value="Rock"><span>Rock</span></label>
+              <label><input type="checkbox" name="style" value="You pick"><span>You pick</span></label>
+            </fieldset>
+            <fieldset class="field chips" data-q="Mood">
+              <legend class="lbl">Mood</legend>
+              <label><input type="checkbox" name="mood" value="Happy"><span>Happy</span></label>
+              <label><input type="checkbox" name="mood" value="Romantic"><span>Romantic</span></label>
+              <label><input type="checkbox" name="mood" value="Emotional"><span>Emotional</span></label>
+              <label><input type="checkbox" name="mood" value="Funny"><span>Funny</span></label>
+              <label><input type="checkbox" name="mood" value="Epic"><span>Epic</span></label>
+            </fieldset>
+            <fieldset class="field chips" data-q="Voice">
+              <legend class="lbl">Voice</legend>
+              <label><input type="radio" name="voice" value="Male"><span>Male</span></label>
+              <label><input type="radio" name="voice" value="Female"><span>Female</span></label>
+              <label><input type="radio" name="voice" value="Duet"><span>Duet</span></label>
+              <label><input type="radio" name="voice" value="No preference"><span>No preference</span></label>
+            </fieldset>
+            <div class="field"><label for="f-ref">A song or artist it should feel like<span class="help">Optional. Helps us get the sound right.</span></label>
+              <input id="f-ref" name="reference" type="text" data-q="Sounds like" placeholder="Vicente Fernández, Ed Sheeran, Grupo Frontera"></div>
+          </div>
+
+          <div class="wstep" hidden>
+            <p class="stepname">Step 4 of 5</p>
+            <h3>About you</h3>
+            <div class="two">
+              <div class="field"><label for="f-name">Your name</label><input id="f-name" name="your_name" type="text" required autocomplete="name" data-q="Your name"></div>
+              <div class="field"><label for="f-email">Your email</label><input id="f-email" name="email" type="email" required autocomplete="email" data-q="Email"></div>
+            </div>
+            <div class="two">
+              <div class="field"><label for="f-phone">Phone<span class="help">Optional. Only if you'd rather text.</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" data-q="Phone"></div>
+              <div class="field"><label for="f-heard">How did you find us?</label>
+                <select id="f-heard" name="heard_from" data-q="Found us through">
+                  <option value="">Choose one</option><option>Instagram</option><option>TikTok</option><option>Facebook</option>
+                  <option>Google</option><option>A friend</option><option>Other</option>
+                </select></div>
+            </div>
+            <label class="check"><input type="checkbox" name="send_examples" value="Yes" data-q="Send examples first"><span>Send me an example song in my style before we start</span></label>
+            <label class="check"><input type="checkbox" name="business_use" value="Yes" data-q="Business use"><span>This song is for my business (an ad, a jingle, social media)</span></label>
+          </div>
+
+          <div class="wstep" hidden>
+            <p class="stepname">Step 5 of 5</p>
+            <h3>Check your answers</h3>
+            <dl id="review" class="review"></dl>
+            <p class="fine">You'll get a reply with the price and timeline before anything is made.</p>
+          </div>
+
+          <p id="w-err" class="err" role="alert"></p>
+          <div class="nav">
+            <button class="btn btn-ghost" type="button" data-go="back" data-hide-first>Back</button>
+            <button class="btn btn-gold" type="button" data-go="next" data-hide-last>Next</button>
+            <button id="w-copy" class="btn btn-ghost" type="button" data-go="copy" hidden>Copy my answers</button>
+            <button id="w-send" class="btn btn-gold" type="submit" data-show-last>Send my song request</button>
+          </div>
+        </form>
+
+        <div id="w-done" class="done" hidden>
+          <h3 tabindex="-1">Your story is in.</h3>
+          <p>Alejandro will reply by email with the price and timeline, usually within a day. Nothing gets made until you say yes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="band">
+    <div class="wrap narrow faq">
+      <h2>Questions</h2>
+      <details><summary>How much does a song cost?</summary><p>It depends on length, language, and how much production the style needs. You get the exact price and timeline in the reply, before anything is made. No subscriptions, no surprise fees.</p></details>
+      <details><summary>How is the song made?</summary><p>The lyrics are written from the details you send. The track is produced with modern AI music tools, then shaped, reviewed, and finished by a person. You get a finished song, not a template with a name dropped in.</p></details>
+      <details><summary>Can it be in Spanish?</summary><p>Yes. Spanish, English, or both in one song. Written in the language you choose by someone who speaks it, not translated by software.</p></details>
+      <details><summary>What do I get?</summary><p>A finished audio track by email. Yours to keep, play at the event, and share with the person it's about. If it's for business use, like an ad or a jingle, check that box in the form.</p></details>
+      <details><summary>Can I hear an example first?</summary><p>Yes. Check "Send me an example song in my style" in the form, and you'll get one before you decide.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>My Own Hit is made by <a href="https://ojedaworks.com">Ojeda Works</a>.</span>
+    <span><a href="mailto:alejandro@ojedaworks.com">alejandro@ojedaworks.com</a> &nbsp; <a href="https://ojedaworks.com/privacy.html">Privacy</a></span>
+  </div>
+</footer>
+
+<script src="assets/demos.js"></script>
+<script src="assets/site.js"></script>
+<script type="module" src="assets/record.js"></script>
+</body>
+</html>
