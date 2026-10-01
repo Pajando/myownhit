@@ -12,20 +12,26 @@
 window.DEMOS = [
   {
     file: null,
-    title: { en: "Happy Birthday, Rosa", es: "Feliz cumpleaños, Rosa" },
-    note:  { en: "Cumbia, Spanish", es: "Cumbia, en español" },
-    label: "Rosa"
+    title: { en: "Low and Slow", es: "Low and Slow" },
+    note:  { en: "Lowrider oldies, English", es: "Oldies lowrider, en inglés" },
+    label: "Low & Slow"
   },
   {
     file: null,
-    title: { en: "Ten Years of Us", es: "Diez años juntos" },
-    note:  { en: "Acoustic pop, English", es: "Pop acústico, en inglés" },
-    label: "Us"
+    title: { en: "First Dance: Sofía & Marco", es: "Primer baile: Sofía y Marco" },
+    note:  { en: "Wedding, Spanish and English", es: "Boda, en español e inglés" },
+    label: "Sofía & Marco"
   },
   {
     file: null,
-    title: { en: "El Corrido de Don Chuy", es: "El corrido de Don Chuy" },
-    note:  { en: "Corrido, Spanish", es: "Corrido, en español" },
-    label: "Don Chuy"
+    title: { en: "Mamá, Gracias", es: "Mamá, gracias" },
+    note:  { en: "Mom's story, balada, Spanish", es: "La historia de mamá, balada, en español" },
+    label: "Mamá"
+  },
+  {
+    file: null,
+    title: { en: "My Old Man's Hands", es: "Las manos de mi papá" },
+    note:  { en: "Dad's story, country, English", es: "La historia de papá, country, en inglés" },
+    label: "Dad"
   }
 ];
