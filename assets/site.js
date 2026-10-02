@@ -420,12 +420,14 @@
     }
   });
   if (L) $$("[data-launch-note]").forEach((el) => { el.hidden = false; });
-  // "Save $X" = the same number of single songs minus the package price (both at today's prices)
+  // "Save $X": during a launch, regular price minus launch price for that package.
+  // Without a launch, the same number of single songs minus the package price.
   $$("[data-save]").forEach((el) => {
-    const n = { two: 2, three: 3 }[el.dataset.save], v = now(el.dataset.save), one = now("one");
-    if (typeof v !== "number" || typeof one !== "number") return;
-    const saved = one * n - v;
-    if (saved <= 0) return;
+    const k = el.dataset.save, n = { one: 1, two: 2, three: 3 }[k];
+    const saved = L && typeof L[k] === "number" && typeof P[k] === "number"
+      ? P[k] - L[k]
+      : (typeof P.one === "number" && typeof P[k] === "number" ? P.one * n - P[k] : 0);
+    if (!(saved > 0)) return;
     el.textContent = el.dataset.word + " " + money(saved);
     el.hidden = false;
   });
