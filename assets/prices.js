@@ -5,7 +5,7 @@
 */
 window.PRICES = {
   currency: "USD",
-  one: null,    // 1 song, 3-4 minutes
-  two: null,    // 2 songs
-  three: null   // 3 songs
+  one: 78,      // 1 song, 3-4 minutes
+  two: 145,     // 2 songs
+  three: 199    // 3 songs
 };

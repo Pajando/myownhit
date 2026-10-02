@@ -215,3 +215,5 @@ footer .wrap{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:space-betwee
 .chips legend{font-weight:600}
 fieldset[aria-invalid=true] legend{color:#ff8db5}
 fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
+.sub.small{font-size:1rem;margin-top:-1.5rem}
+.tier .save{margin:-.5rem 0 .9rem;font-weight:600;color:var(--rosa);filter:brightness(1.35)}

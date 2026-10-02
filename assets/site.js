@@ -408,4 +408,13 @@
     el.textContent = typeof v === "number" ? new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: v % 1 ? 2 : 0 }).format(v) : T.priceSoon;
     el.classList.toggle("soon", typeof v !== "number");
   });
+  // "Save $X" = the same number of single songs minus the package price
+  $$("[data-save]").forEach((el) => {
+    const n = { two: 2, three: 3 }[el.dataset.save], v = P[el.dataset.save];
+    if (typeof v !== "number" || typeof P.one !== "number") return;
+    const saved = P.one * n - v;
+    if (saved <= 0) return;
+    el.textContent = el.dataset.word + " " + new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: saved % 1 ? 2 : 0 }).format(saved);
+    el.hidden = false;
+  });
 })();
