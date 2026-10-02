@@ -403,18 +403,30 @@
 
   // ---------- prices (set them in assets/prices.js)
   const P = window.PRICES || {};
+  const L = P.launch && typeof P.launch === "object" ? P.launch : null;
+  const money = (v) => new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: v % 1 ? 2 : 0 }).format(v);
+  const now = (k) => (L && typeof L[k] === "number" ? L[k] : P[k]);
   $$("[data-price]").forEach((el) => {
-    const v = P[el.dataset.price];
-    el.textContent = typeof v === "number" ? new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: v % 1 ? 2 : 0 }).format(v) : T.priceSoon;
-    el.classList.toggle("soon", typeof v !== "number");
+    const k = el.dataset.price, regular = P[k], v = now(k);
+    if (typeof v !== "number") { el.textContent = T.priceSoon; el.classList.add("soon"); return; }
+    el.classList.remove("soon");
+    el.textContent = money(v);
+    if (L && typeof regular === "number" && regular > v) {
+      const was = document.createElement("s");
+      was.className = "was";
+      was.textContent = money(regular);
+      el.prepend(was, " ");
+      el.setAttribute("aria-label", (lang === "es" ? "Precio regular " : "Regular price ") + money(regular) + (lang === "es" ? ", precio de lanzamiento " : ", launch price ") + money(v));
+    }
   });
-  // "Save $X" = the same number of single songs minus the package price
+  if (L) $$("[data-launch-note]").forEach((el) => { el.hidden = false; });
+  // "Save $X" = the same number of single songs minus the package price (both at today's prices)
   $$("[data-save]").forEach((el) => {
-    const n = { two: 2, three: 3 }[el.dataset.save], v = P[el.dataset.save];
-    if (typeof v !== "number" || typeof P.one !== "number") return;
-    const saved = P.one * n - v;
+    const n = { two: 2, three: 3 }[el.dataset.save], v = now(el.dataset.save), one = now("one");
+    if (typeof v !== "number" || typeof one !== "number") return;
+    const saved = one * n - v;
     if (saved <= 0) return;
-    el.textContent = el.dataset.word + " " + new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: saved % 1 ? 2 : 0 }).format(saved);
+    el.textContent = el.dataset.word + " " + money(saved);
     el.hidden = false;
   });
 })();
