@@ -4,7 +4,7 @@ When this is set up:
 - Every email typed into the site lands in the **Leads** tab with Status "Started".
 - When that person finishes the questions, their lead flips to "Finished", the order lands in the **Orders** tab,
   you get the full order by email (hit Reply to answer the customer), and the customer gets a welcome from
-  alejandro@ojedaworks.com: we got your story, we confirm details + payment within 1 day, song in 2–5 days.
+  alejandro@ojedaworks.com: we got your story, we confirm details + payment within 2–3 days, song in 2–5 days after that.
 - Leads still "Started" after a day = people who didn't finish. Worth a short follow-up email.
 
 ## Steps

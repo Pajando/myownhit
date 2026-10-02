@@ -38,8 +38,18 @@
 <main id="main">
   <section id="start" class="startpage">
     <div class="wrap">
-      <h1 class="pagetitle">Cuéntanos de esa persona</h1>
+      <h1 class="pagetitle">Cuéntanos la historia</h1>
       <p class="sub">Unos cinco minutos. Tus respuestas se guardan en este dispositivo, así que puedes regresar después.</p>
+      <div class="byemail">
+        <p class="eq-text"><b>¿Prefieres contestar por correo?</b> Te mandamos estas preguntas. Dale Responder y contéstalas, o manda una nota de voz contando la historia.</p>
+        <p class="eq-sent" hidden><b>También te mandamos estas preguntas por correo.</b> ¿Prefieres contestar ahí? Solo dale Responder, o manda una nota de voz contando la historia.</p>
+        <form class="email-q signup" novalidate>
+          <label class="hp">Deja esto vacío <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+          <input type="email" name="email" placeholder="tu@correo.com" aria-label="Tu correo" autocomplete="email" required>
+          <button class="btn btn-ghost" type="submit">Mándame las preguntas</button>
+        </form>
+        <p class="eq-msg" aria-live="polite"></p>
+      </div>
       <div class="wizard">
         <ol class="progress" aria-hidden="true"><li></li><li></li><li></li><li></li><li></li></ol>
 
@@ -83,6 +93,8 @@
               <textarea id="f-moments" name="moments" data-q="Momentos clave" placeholder="El primer carro, el día que te fuiste de la casa, el día que nació tu hijo" data-me-ph="El primer carro, el día que te fuiste de la casa, el día que nació tu hijo" data-them-ph="El viaje en carretera, el primer departamento, el día que nació el bebé"></textarea></div>
             <div class="field"><label for="f-words"><span data-me="Nombres, apodos o cosas que siempre dices" data-them="Nombres, apodos o cosas que siempre dice">Nombres, apodos o cosas que siempre dices</span></label>
               <input id="f-words" name="words_to_include" type="text" data-q="Palabras a incluir" placeholder="&quot;Mija,&quot; el nombre del perro, &quot;ya merito&quot;"></div>
+            <div class="field"><label for="f-say">¿Cómo se pronuncian los nombres?<span class="help">Opcional. Escríbelos como suenan, para que el cantante los diga bien.</span></label>
+              <input id="f-say" name="pronunciation" type="text" data-q="Cómo se dicen los nombres" placeholder="Brandon = BRAN-don"></div>
             <div class="field"><label for="f-avoid">¿Algo que no deba ir?</label>
               <input id="f-avoid" name="avoid" type="text" data-q="No incluir" placeholder="Temas, nombres o palabras que evitar"></div>
           </div>
@@ -126,8 +138,15 @@
               <label><input type="radio" name="voice" value="Duet"><span>Dueto</span></label>
               <label><input type="radio" name="voice" value="No preference"><span>Me da igual</span></label>
             </fieldset>
+            <fieldset class="field chips" data-q="Letra">
+              <legend class="lbl">Letra</legend>
+              <label><input type="radio" name="lyrics" value="Clean"><span>Limpia</span></label>
+              <label><input type="radio" name="lyrics" value="Explicit OK"><span>Con groserías está bien</span></label>
+            </fieldset>
             <div class="field"><label for="f-ref">Una canción o artista que se parezca<span class="help">Opcional. Nos ayuda a pegarle al sonido.</span></label>
               <input id="f-ref" name="reference" type="text" data-q="Se parece a" placeholder="Vicente Fernández, Ed Sheeran, Grupo Frontera"></div>
+            <div class="field"><label for="f-title">Idea para el título<span class="help">Opcional. ¿No sabes? Déjalo en nuestras manos.</span></label>
+              <input id="f-title" name="title_idea" type="text" data-q="Idea de título"></div>
           </div>
 
           <div class="wstep" hidden>
@@ -153,7 +172,7 @@
             <p class="stepname">Paso 5 de 5</p>
             <h3>Revisa tus respuestas</h3>
             <dl id="review" class="review"></dl>
-            <p class="fine">Te respondemos con el precio y el tiempo de entrega antes de hacer nada.</p>
+            <p class="fine">En 2 a 3 días te llega un correo para confirmar los detalles. No se hace nada hasta que confirmes.</p>
           </div>
 
           <p id="w-err" class="err" role="alert"></p>
@@ -167,7 +186,7 @@
 
         <div id="w-done" class="done" hidden>
           <h3 tabindex="-1">Tu historia ya llegó.</h3>
-          <p>Alejandro te responde por correo con el precio en menos de un día. No se hace nada hasta que tú digas que sí. Después, la mayoría de las canciones están listas en 2 a 5 días.</p>
+          <p>En 2 a 3 días, Alejandro te escribe para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes. Después, la mayoría de las canciones están listas en 2 a 5 días.</p>
           <p class="welcome-note" hidden>Te acabamos de mandar un correo de bienvenida con los siguientes pasos. Si no lo ves, revisa tu carpeta de spam.</p>
           <button id="w-next" class="btn btn-gold" type="button" hidden>Empezar la siguiente canción</button>
         </div>

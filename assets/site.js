@@ -26,6 +26,8 @@
       signupOk: "You're on the list. New demos will come to your inbox.",
       signupFail: "That didn't go through. Try again in a minute.",
       subjectSong: "New song request (My Own Hit)", subjectLead: "New lead started (My Own Hit)",
+      eqSent: "Sent. Check your inbox, and your spam folder just in case.", eqQueued: "Got it. Alejandro will email you the questions.",
+      eqFail: "That didn't send. Email alejandro@ojedaworks.com and we'll send the questions.",
       priceSoon: "Price coming soon", songOf: "Song {n} of {t}", nextSong: "Start song {n} of {t}",
       none: "None"
     },
@@ -40,6 +42,8 @@
       signupOk: "Ya estás en la lista. Los nuevos demos te llegan al correo.",
       signupFail: "No se envió. Inténtalo en un minuto.",
       subjectSong: "Nuevo pedido de canción (Mi Propio Hit)", subjectLead: "Nuevo cliente empezó (Mi Propio Hit)",
+      eqSent: "Listo. Revisa tu correo, y tu carpeta de spam por si acaso.", eqQueued: "Listo. Alejandro te va a mandar las preguntas por correo.",
+      eqFail: "No se envió. Escribe a alejandro@ojedaworks.com y te mandamos las preguntas.",
       priceSoon: "Precio muy pronto", songOf: "Canción {n} de {t}", nextSong: "Empezar la canción {n} de {t}",
       none: "Nada"
     }
@@ -372,6 +376,30 @@
       location.href = START + "?" + q;
     });
   });
+
+  // ---------- "answer by email instead" on the questions page
+  const eq = $(".byemail");
+  if (eq) {
+    const lead = store.get("myownhit-lead") || {};
+    const f = $(".email-q", eq), msg = $(".eq-msg", eq);
+    // came from the email box and the handler is live: they already have the email
+    if (lead.email && APPS_SCRIPT_URL) { $(".eq-text", eq).hidden = true; $(".eq-sent", eq).hidden = false; f.hidden = true; }
+    if (lead.email) f.elements.email.value = lead.email;
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = f.elements.email;
+      if (!email.checkValidity()) { email.setAttribute("aria-invalid", "true"); msg.textContent = T.emailBad; email.focus(); return; }
+      email.removeAttribute("aria-invalid");
+      const btn = $("button", f); btn.disabled = true;
+      const form = $("#song-form");
+      try {
+        await send({ form: "lead", via: "email-questions", email: email.value.trim(), recipient_name: form?.elements.recipient_name?.value || lead.name || "",
+          about: form?.querySelector("[name=about]:checked")?.value || "me", site_language: lang, _subject: T.subjectLead, _honey: f.elements._honey.value });
+        msg.textContent = APPS_SCRIPT_URL ? T.eqSent : T.eqQueued;
+        f.hidden = true;
+      } catch (ex) { msg.textContent = T.eqFail; btn.disabled = false; }
+    });
+  }
 
   // ---------- prices (set them in assets/prices.js)
   const P = window.PRICES || {};

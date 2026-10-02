@@ -206,3 +206,10 @@ footer .wrap{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:space-betwee
 .namebox .about legend{font-weight:600;margin-bottom:.55rem}
 .wizard .about{margin-bottom:1.5rem}
 .namebox .about label{display:inline-block;margin:0}
+
+.byemail{max-width:46rem;border:1.5px dashed var(--line);border-radius:var(--r-lg);padding:1.1rem 1.25rem;margin:0 0 1.5rem}
+.byemail p{margin:0 0 .8rem}
+.byemail .eq-msg{margin:.6rem 0 0;color:var(--muted)}
+.byemail .eq-msg:empty{display:none}
+.byemail form[hidden]+.eq-msg{margin-top:0}
+.chips legend{font-weight:600}
