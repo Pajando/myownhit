@@ -54,7 +54,7 @@ var ORDER_FIELDS = [
   ["recipient_name", "Song for"], ["relationship", "Relationship"], ["occasion", "Occasion"],
   ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
   ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
-  ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Clean / explicit"], ["title_idea", "Title idea"], ["send_examples", "Wants example first"],
+  ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Cursing OK?"], ["title_idea", "Title idea"], ["send_examples", "Wants example first"],
   ["business_use", "Business use"], ["heard_from", "Found us through"], ["site_language", "Site language"]
 ];
 
@@ -137,7 +137,7 @@ var QUESTIONS = {
       "Mood: happy, romantic, emotional, funny, or epic?",
       "Voice: male, female, duet, or no preference?",
       "A song or artist it should feel like:",
-      "Lyrics: keep it clean, or is explicit OK?",
+      "Is cursing OK in the song? Yes or no. (We need an answer on this one.)",
       "Song title idea (optional):",
       "When do you need it?",
       "How many songs?",
@@ -165,7 +165,7 @@ var QUESTIONS = {
       "Ambiente: ¿alegre, romántico, emotivo, chistoso o épico?",
       "Voz: ¿hombre, mujer, dueto o te da igual?",
       "Una canción o artista que se parezca:",
-      "Letra: ¿limpia, o con groserías está bien?",
+      "¿Está bien que la canción tenga groserías? Sí o no. (Esta sí necesitamos que la contestes.)",
       "Idea para el título (opcional):",
       "¿Para cuándo la necesitas?",
       "¿Cuántas canciones?",

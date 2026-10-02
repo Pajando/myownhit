@@ -213,3 +213,5 @@ footer .wrap{display:flex;gap:1.5rem;flex-wrap:wrap;justify-content:space-betwee
 .byemail .eq-msg:empty{display:none}
 .byemail form[hidden]+.eq-msg{margin-top:0}
 .chips legend{font-weight:600}
+fieldset[aria-invalid=true] legend{color:#ff8db5}
+fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
