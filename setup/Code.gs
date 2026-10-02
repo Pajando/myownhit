@@ -47,7 +47,7 @@ function doPost(e) {
 // [form field name, label for the sheet + Alejandro's email]
 var ORDER_FIELDS = [
   ["your_name", "Customer"], ["email", "Email"], ["phone", "Phone"],
-  ["songs", "Songs ordered"], ["song_number", "This is song"],
+  ["songs", "Songs ordered"], ["song_number", "This is song"], ["about", "About (me / someone)"],
   ["recipient_name", "Song for"], ["relationship", "Relationship"], ["occasion", "Occasion"],
   ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
   ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
@@ -74,7 +74,7 @@ function sendWelcome_(d, lang) {
   if (d.needed_by) extras.push(t.date.replace("{date}", esc_(d.needed_by)));
   var tr = function (v) { return lang === "es" ? String(v || "").split(", ").map(function (x) { return ES_VALUES[x] || x; }).join(", ") : v; };
   var recap = [
-    [t.r_for, who], [t.r_occ, esc_(d.occasion)], [t.r_lang, esc_(tr(d.language))],
+    [t.r_for, d.about === "me" ? "" : who], [t.r_occ, esc_(d.occasion)], [t.r_lang, esc_(tr(d.language))],
     [t.r_style, esc_(tr(d.style) || t.youPick)], [t.r_mood, esc_(tr(d.mood))]
   ].filter(function (r) { return r[1]; })
    .map(function (r) { return '<tr><td style="padding:4px 16px 4px 0;color:#6b6790">' + r[0] + '</td><td style="padding:4px 0">' + r[1] + "</td></tr>"; }).join("");
@@ -82,7 +82,7 @@ function sendWelcome_(d, lang) {
   var html =
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#16133d;max-width:560px">' +
     "<p>" + t.hi.replace("{name}", name) + "</p>" +
-    "<p>" + t.got.replace("{who}", "<b>" + who + "</b>") + "</p>" +
+    "<p>" + (d.about === "me" ? t.gotMe : t.got.replace("{who}", "<b>" + who + "</b>")) + "</p>" +
     "<p><b>" + t.nextTitle + "</b></p>" +
     "<ol style=\"padding-left:20px\">" +
       "<li>" + t.step1 + "</li>" +
@@ -106,6 +106,7 @@ var WELCOME = {
     subject: "We got your story: {who}'s song",
     hi: "Hi {name},",
     got: "Thanks for telling us about {who}. Your story is in, and I read every word of these myself.",
+    gotMe: "Thanks for trusting us with your story. It's in, and I read every word of these myself.",
     nextTitle: "Here's what happens next:",
     step1: "Within 1 day, I'll email you to confirm the details and how to pay. Nothing gets made until you confirm.",
     step2: "Once you confirm, your song (3–4 minutes) is usually ready in {eta}.",
@@ -120,6 +121,7 @@ var WELCOME = {
     subject: "Ya llegó tu historia: la canción de {who}",
     hi: "Hola {name}:",
     got: "Gracias por contarnos de {who}. Tu historia ya llegó, y yo mismo leo cada palabra.",
+    gotMe: "Gracias por confiarnos tu historia. Ya llegó, y yo mismo leo cada palabra.",
     nextTitle: "Lo que sigue:",
     step1: "En menos de 1 día te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes.",
     step2: "Cuando confirmes, tu canción (de 3 a 4 minutos) normalmente está lista en {eta}.",

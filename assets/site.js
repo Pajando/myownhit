@@ -59,6 +59,17 @@
   };
   const playState = (playing) => dispatchEvent(new CustomEvent("record:play", { detail: { playing } }));
 
+  // ---------- "Me" vs "Someone I love": swap the wording that depends on who the song is about
+  function applyAbout(root, v) {
+    const me = v !== "someone";
+    $$("[data-me]", root).forEach((el) => { el.textContent = me ? el.dataset.me : el.dataset.them; });
+    $$("[data-me-ph]", root).forEach((el) => { el.placeholder = me ? el.dataset.mePh : el.dataset.themPh; });
+    $$("[data-them-only]", root).forEach((el) => { el.hidden = me; });
+  }
+  $$("form").forEach((f) => {
+    f.addEventListener("change", (e) => { if (e.target.name === "about") applyAbout(f, e.target.value); });
+  });
+
   // ---------- name on the record
   const heroName = $("#hero-name");
   const recipient = $("#f-recipient");
@@ -178,6 +189,9 @@
     const fill = (sel, v) => { const el = $(sel, form); if (el && v && !el.value) el.value = v; };
     fill("#f-email", lead.email);
     fill("#f-recipient", params.get("name") || lead.name);
+    const aboutVal = params.get("about") || lead.about;
+    if (aboutVal && !draft) { const r = $(`[name=about][value="${aboutVal === "someone" ? "someone" : "me"}"]`, form); if (r) r.checked = true; }
+    applyAbout(form, $("[name=about]:checked", form)?.value);
     const songsSel = $("#f-songs");
     if (songsSel && ["1", "2", "3"].includes(params.get("songs"))) songsSel.value = params.get("songs");
 
@@ -251,7 +265,10 @@
         const dt = document.createElement("dt");
         const dd = document.createElement("dd");
         dt.textContent = el.dataset.q || el.closest("fieldset")?.dataset.q || name;
-        dd.textContent = val === undefined || val === "" ? T.none : [].concat(val).join(", ");
+        const shown = (el.type === "radio" || el.type === "checkbox")
+          ? $$(`[name="${CSS.escape(name)}"]:checked`, form).map((c) => c.nextElementSibling?.textContent || c.value).join(", ")
+          : [].concat(val ?? "").join(", ");
+        dd.textContent = shown === "" ? T.none : shown;
         row.append(dt, dd); dl.appendChild(row);
       });
     }
@@ -314,8 +331,10 @@
     $("#w-next")?.addEventListener("click", () => {
       const keep = {};
       ["your_name", "email", "phone", "heard_from", "songs"].forEach((n) => { const el = form.elements[n]; if (el) keep[n] = el.value; });
+      keep.about = "someone"; // song 2+ in one order is almost always for someone else
       form.reset();
       Object.entries(keep).forEach(([n, v]) => { form.elements[n].value = v; });
+      applyAbout(form, keep.about);
       songNum += 1;
       updateCounter();
       $("#w-next").hidden = true;
@@ -340,14 +359,17 @@
       email.removeAttribute("aria-invalid");
       msg.textContent = "";
       const name = (f.elements.recipient_name?.value || typedName || "").trim();
-      store.set("myownhit-lead", { email: email.value.trim(), name });
+      const about = f.elements.about?.value || "me";
+      store.set("myownhit-lead", { email: email.value.trim(), name, about });
       const btn = $("button", f); btn.disabled = true;
       // don't make them wait on the network: give it up to 2.5s, then go either way
       await Promise.race([
-        send({ form: "lead", email: email.value.trim(), recipient_name: name, site_language: lang, _subject: T.subjectLead, _honey: $("[name=_honey]", f).value }, true).catch(() => {}),
+        send({ form: "lead", email: email.value.trim(), recipient_name: name, about, site_language: lang, _subject: T.subjectLead, _honey: $("[name=_honey]", f).value }, true).catch(() => {}),
         new Promise((r) => setTimeout(r, 2500))
       ]);
-      location.href = START + (name ? "?name=" + encodeURIComponent(name) : "");
+      const q = new URLSearchParams({ about });
+      if (name) q.set("name", name);
+      location.href = START + "?" + q;
     });
   });
 

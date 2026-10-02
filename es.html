@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mi Propio Hit | Una canción personalizada para quien más quieres</title>
-<meta name="description" content="Cuéntanos de esa persona. Escribimos y producimos una canción de verdad sobre ella, en español, inglés o los dos. Cumpleaños, bodas, quinceañeras, homenajes y corridos.">
+<title>Mi Propio Hit | Tu historia, hecha tu propia canción</title>
+<meta name="description" content="Tu historia hecha una canción de verdad, en el estilo que siempre quisiste: corridos, oldies, R&amp;B, banda. En español, inglés o los dos. O hazle una a alguien que quieres.">
 <link rel="canonical" href="https://myownhit.com/es.html">
 <link rel="alternate" hreflang="en" href="https://myownhit.com/">
 <link rel="alternate" hreflang="es" href="https://myownhit.com/es.html">
 <link rel="alternate" hreflang="x-default" href="https://myownhit.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Mi Propio Hit | Una canción personalizada para quien más quieres">
-<meta property="og:description" content="Cuéntanos la historia. Escúchala hecha canción. En español, inglés o los dos.">
+<meta property="og:title" content="Mi Propio Hit | Tu historia, hecha tu propia canción">
+<meta property="og:description" content="Tu historia. Tu canción. En el estilo que siempre quisiste, en español, inglés o los dos.">
 <meta property="og:url" content="https://myownhit.com/es.html">
 <meta property="og:locale" content="es_US">
 <meta name="theme-color" content="#16133d">
@@ -52,18 +52,24 @@
   <section class="hero" style="padding:0">
     <div class="wrap">
       <div>
-        <h1>Su historia, hecha canción.</h1>
-        <p class="lede">Cuéntanos de esa persona. Escribimos y producimos una canción de verdad sobre ella, en español, inglés o los dos. Para cumpleaños, bodas, quinceañeras y para la gente que merece una canción mientras todavía la puede escuchar.</p>
+        <h1>Tu historia. Tu canción.</h1>
+        <p class="lede">De dónde vienes, lo que has vivido, con quién andas. Escribimos y producimos una canción de verdad sobre tu vida, en el estilo que siempre quisiste: corridos, oldies, R&amp;B, banda, lo que tú quieras. En español, inglés o los dos.</p>
+        <p class="gift">¿Quieres hacerle una a alguien más? También se puede.</p>
         <form class="namebox lead-form" novalidate>
           <label class="hp">Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-          <label for="hero-name">¿Para quién es la canción?</label>
-          <input id="hero-name" name="recipient_name" type="text" placeholder="Su nombre" autocomplete="off" maxlength="28">
+          <fieldset class="chips about" data-q="¿De quién es la canción?">
+            <legend class="lbl">¿De quién es la canción?</legend>
+            <label><input type="radio" name="about" value="me" checked><span>Mía</span></label>
+            <label><input type="radio" name="about" value="someone"><span>De alguien que quiero</span></label>
+          </fieldset>
+          <label for="hero-name"><span data-me="Tu nombre" data-them="Su nombre">Tu nombre</span></label>
+          <input id="hero-name" name="recipient_name" type="text" placeholder="Tu nombre" data-me-ph="Tu nombre" data-them-ph="Su nombre" autocomplete="off" maxlength="28">
           <label for="hero-email">Tu correo</label>
           <div class="row">
             <input id="hero-email" name="email" type="email" placeholder="tu@correo.com" autocomplete="email" required>
-            <button class="btn btn-gold" type="submit">Empezar su canción</button>
+            <button class="btn btn-gold" type="submit">Empezar mi canción</button>
           </div>
-          <p class="hint">Escribe un nombre y mira el disco. Después vienen unas preguntas sobre esa persona.</p>
+          <p class="hint">Escribe un nombre y mira el disco. Después vienen unas preguntas.</p>
           <p class="lead-msg err" aria-live="polite"></p>
         </form>
       </div>

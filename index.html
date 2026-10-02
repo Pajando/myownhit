@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>My Own Hit | A custom song about someone you love</title>
-<meta name="description" content="Tell us about the person. We write and produce a real song about them, in English, Spanish, or both. Birthdays, weddings, quinceañeras, tributes.">
+<title>My Own Hit | Your story, made into your own song</title>
+<meta name="description" content="Your story, made into a real song in the style you've always wanted: corridos, oldies, R&amp;B, country. In English, Spanish, or both. Or make one for someone you love.">
 <link rel="canonical" href="https://myownhit.com/">
 <link rel="alternate" hreflang="en" href="https://myownhit.com/">
 <link rel="alternate" hreflang="es" href="https://myownhit.com/es.html">
 <link rel="alternate" hreflang="x-default" href="https://myownhit.com/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="My Own Hit | A custom song about someone you love">
-<meta property="og:description" content="Tell us the story. Hear it as a song. In English, Spanish, or both.">
+<meta property="og:title" content="My Own Hit | Your story, made into your own song">
+<meta property="og:description" content="Your story. Your song. In the style you've always wanted, in English, Spanish, or both.">
 <meta property="og:url" content="https://myownhit.com/">
 <meta name="theme-color" content="#16133d">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23111'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23e4007c'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%23fff4e6'/%3E%3C/svg%3E">
@@ -51,18 +51,24 @@
   <section class="hero" style="padding:0">
     <div class="wrap">
       <div>
-        <h1>Their story, made into their song.</h1>
-        <p class="lede">Tell us about the person. We write and produce a real song about them, in English, Spanish, or both. For birthdays, weddings, quinceañeras, and the people who deserve a song while they can still hear it.</p>
+        <h1>Your story. Your song.</h1>
+        <p class="lede">Where you came from, what you've been through, who you ride with. We write and produce a real song about your life, in the style you've always wanted: corridos, oldies, R&amp;B, country, you name it. In English, Spanish, or both.</p>
+        <p class="gift">Want to make one for someone else? That works too.</p>
         <form class="namebox lead-form" novalidate>
           <label class="hp">Leave this empty <input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-          <label for="hero-name">Who's the song for?</label>
-          <input id="hero-name" name="recipient_name" type="text" placeholder="Their name" autocomplete="off" maxlength="28">
+          <fieldset class="chips about" data-q="Who's the song about?">
+            <legend class="lbl">Who's the song about?</legend>
+            <label><input type="radio" name="about" value="me" checked><span>Me</span></label>
+            <label><input type="radio" name="about" value="someone"><span>Someone I love</span></label>
+          </fieldset>
+          <label for="hero-name"><span data-me="Your name" data-them="Their name">Your name</span></label>
+          <input id="hero-name" name="recipient_name" type="text" placeholder="Your name" data-me-ph="Your name" data-them-ph="Their name" autocomplete="off" maxlength="28">
           <label for="hero-email">Your email</label>
           <div class="row">
             <input id="hero-email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required>
-            <button class="btn btn-gold" type="submit">Start their song</button>
+            <button class="btn btn-gold" type="submit">Start my song</button>
           </div>
-          <p class="hint">Type a name and watch the record. Next come a few questions about them.</p>
+          <p class="hint">Type a name and watch the record. Next come a few questions.</p>
           <p class="lead-msg err" aria-live="polite"></p>
         </form>
       </div>

@@ -48,18 +48,24 @@
 
           <div class="wstep">
             <p class="stepname">Step 1 of 5</p>
-            <h3>Who is it for?</h3>
+            <h3><span data-me="Let's start with you" data-them="Who is it for?">Let's start with you</span></h3>
+            <fieldset class="chips about" data-q="Who's the song about?">
+              <legend class="lbl">Who's the song about?</legend>
+              <label><input type="radio" name="about" value="me" checked><span>Me</span></label>
+              <label><input type="radio" name="about" value="someone"><span>Someone I love</span></label>
+            </fieldset>
             <div class="field"><label for="f-songs">How many songs?</label>
               <select id="f-songs" name="songs" data-q="Songs"><option value="1">1 song</option><option value="2">2 songs</option><option value="3">3 songs</option></select>
               <span class="help">More than 3? <a href="pricing.html#more">Email us</a>.</span></div>
             <div class="two">
-              <div class="field"><label for="f-recipient">Their name</label><input id="f-recipient" name="recipient_name" type="text" required data-q="Song is for" maxlength="60"></div>
-              <div class="field"><label for="f-rel">Who are they to you?</label><input id="f-rel" name="relationship" type="text" placeholder="My mom, my wife, my best friend" data-q="Relationship"></div>
+              <div class="field"><label for="f-recipient"><span data-me="Your name, the way it should sound in the song" data-them="Their name">Your name, the way it should sound in the song</span></label><input id="f-recipient" name="recipient_name" type="text" required data-q="Song is for" maxlength="60"></div>
+              <div class="field" data-them-only><label for="f-rel">Who are they to you?</label><input id="f-rel" name="relationship" type="text" placeholder="My mom, my wife, my best friend" data-q="Relationship"></div>
             </div>
             <div class="two">
               <div class="field"><label for="f-occ">The occasion</label>
                 <select id="f-occ" name="occasion" required data-q="Occasion">
                   <option value="">Choose one</option>
+                  <option>My life story</option><option>Something I overcame</option><option>My family and my roots</option><option>Just for me</option>
                   <option>Birthday</option><option>Wedding or anniversary</option><option>Quinceañera</option>
                   <option>Proposal</option><option>For my mom or dad</option><option>Tribute or in memory</option><option>Graduation</option>
                   <option>Just because</option><option>For my business</option><option>Something else</option>
@@ -70,12 +76,12 @@
 
           <div class="wstep" hidden>
             <p class="stepname">Step 2 of 5</p>
-            <h3>Tell us about them</h3>
-            <div class="field"><label for="f-story">Who are they, and what's your story together?<span class="help">The more real detail, the more it sounds like it could only be about them.</span></label>
-              <textarea id="f-story" name="story" required data-q="Their story" placeholder="How you met, what they're like, what they mean to you"></textarea></div>
+            <h3><span data-me="Tell us your story" data-them="Tell us about them">Tell us your story</span></h3>
+            <div class="field"><label for="f-story"><span data-me="Where you came from, what you've been through, who you ride with" data-them="Who are they, and what's your story together?">Where you came from, what you've been through, who you ride with</span><span class="help"><span data-me="The more real detail, the more it sounds like it could only be you." data-them="The more real detail, the more it sounds like it could only be about them.">The more real detail, the more it sounds like it could only be you.</span></span></label>
+              <textarea id="f-story" name="story" required data-q="Their story" placeholder="The neighborhood, the hard years, the comeback, the people who were there" data-me-ph="The neighborhood, the hard years, the comeback, the people who were there" data-them-ph="How you met, what they're like, what they mean to you"></textarea></div>
             <div class="field"><label for="f-moments">Moments that have to be in the song</label>
-              <textarea id="f-moments" name="moments" data-q="Must-have moments" placeholder="The road trip, the first apartment, the day the baby was born"></textarea></div>
-            <div class="field"><label for="f-words">Names, nicknames, or things they always say</label>
+              <textarea id="f-moments" name="moments" data-q="Must-have moments" placeholder="The first car, the day you moved out, the day your kid was born" data-me-ph="The first car, the day you moved out, the day your kid was born" data-them-ph="The road trip, the first apartment, the day the baby was born"></textarea></div>
+            <div class="field"><label for="f-words"><span data-me="Names, nicknames, or things you always say" data-them="Names, nicknames, or things they always say">Names, nicknames, or things you always say</span></label>
               <input id="f-words" name="words_to_include" type="text" data-q="Words to include" placeholder="&quot;Mija,&quot; the dog's name, &quot;ya merito&quot;"></div>
             <div class="field"><label for="f-avoid">Anything to keep out?</label>
               <input id="f-avoid" name="avoid" type="text" data-q="Keep out" placeholder="Topics, names, or words to skip"></div>
