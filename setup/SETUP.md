@@ -1,11 +1,11 @@
 # Turn on welcome emails (about 10 minutes, one time)
 
-When this is set up, every song request:
-- lands in a Google Sheet (one row per order, with a Status column you can update),
-- emails you the full order (hit Reply to answer the customer),
-- emails the customer a welcome from alejandro@ojedaworks.com: we got your story, price within 1 day, song in 2–5 days.
-
-Demo signups get logged and receive a short welcome too.
+When this is set up:
+- Every email typed into the site lands in the **Leads** tab with Status "Started".
+- When that person finishes the questions, their lead flips to "Finished", the order lands in the **Orders** tab,
+  you get the full order by email (hit Reply to answer the customer), and the customer gets a welcome from
+  alejandro@ojedaworks.com: we got your story, we confirm details + payment within 1 day, song in 2–5 days.
+- Leads still "Started" after a day = people who didn't finish. Worth a short follow-up email.
 
 ## Steps
 

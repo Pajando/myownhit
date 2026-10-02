@@ -1,15 +1,15 @@
-// Demos player, name-on-the-record, the song questionnaire, and the email signup.
-// Both forms post to FormSubmit, which emails alejandro@ojedaworks.com.
+// Demos player, name-on-the-record, email capture -> questions page, the song questionnaire, prices.
+// Forms post to the Google Apps Script handler (setup/Code.gs), or FormSubmit until that's deployed.
 (function () {
   // Paste the Google Apps Script web-app URL here once it's deployed (see setup/SETUP.md).
   // While it's empty, forms fall back to FormSubmit (no welcome email to the customer).
   const APPS_SCRIPT_URL = "";
   const FORMSUBMIT = "https://formsubmit.co/ajax/alejandro@ojedaworks.com";
   // Apps Script needs text/plain (no CORS preflight); FormSubmit takes JSON.
-  async function send(body) {
+  async function send(body, keepalive) {
     const url = APPS_SCRIPT_URL || FORMSUBMIT;
     const headers = APPS_SCRIPT_URL ? { "Content-Type": "text/plain;charset=utf-8" } : { "Content-Type": "application/json", Accept: "application/json" };
-    const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(body) });
+    const res = await fetch(url, { method: "POST", headers, body: JSON.stringify(body), keepalive: !!keepalive });
     const json = await res.json().catch(() => ({}));
     if (!res.ok || String(json.success) !== "true") throw new Error(json.message || res.status);
   }
@@ -25,7 +25,8 @@
       copied: "Copied. Paste it into an email to alejandro@ojedaworks.com.",
       signupOk: "You're on the list. New demos will come to your inbox.",
       signupFail: "That didn't go through. Try again in a minute.",
-      subjectSong: "New song request (My Own Hit)", subjectList: "New email signup (My Own Hit)",
+      subjectSong: "New song request (My Own Hit)", subjectLead: "New lead started (My Own Hit)",
+      priceSoon: "Price coming soon", songOf: "Song {n} of {t}", nextSong: "Start song {n} of {t}",
       none: "None"
     },
     es: {
@@ -38,7 +39,8 @@
       copied: "Copiado. Pégalo en un correo a alejandro@ojedaworks.com.",
       signupOk: "Ya estás en la lista. Los nuevos demos te llegan al correo.",
       signupFail: "No se envió. Inténtalo en un minuto.",
-      subjectSong: "Nuevo pedido de canción (Mi Propio Hit)", subjectList: "Nuevo correo en la lista (Mi Propio Hit)",
+      subjectSong: "Nuevo pedido de canción (Mi Propio Hit)", subjectLead: "Nuevo cliente empezó (Mi Propio Hit)",
+      priceSoon: "Precio muy pronto", songOf: "Canción {n} de {t}", nextSong: "Empezar la canción {n} de {t}",
       none: "Nada"
     }
   }[lang];
@@ -66,9 +68,6 @@
       typedName = heroName.value;
       label(typedName);
       if (recipient && !recipient.dataset.touched) recipient.value = typedName;
-    });
-    $("#hero-go")?.addEventListener("click", () => {
-      if (recipient && heroName.value.trim()) recipient.value = heroName.value.trim();
     });
   }
   addEventListener("record:ready", () => label(typedName));
@@ -173,6 +172,28 @@
       });
     }
 
+    // coming from the email box or the pricing page: fill what we already know
+    const lead = store.get("myownhit-lead") || {};
+    const params = new URLSearchParams(location.search);
+    const fill = (sel, v) => { const el = $(sel, form); if (el && v && !el.value) el.value = v; };
+    fill("#f-email", lead.email);
+    fill("#f-recipient", params.get("name") || lead.name);
+    const songsSel = $("#f-songs");
+    if (songsSel && ["1", "2", "3"].includes(params.get("songs"))) songsSel.value = params.get("songs");
+
+    let songNum = 1;
+    const counter = document.createElement("p");
+    counter.className = "song-count";
+    counter.hidden = true;
+    form.parentElement.prepend(counter);
+    const total = () => Number(songsSel ? songsSel.value : 1) || 1;
+    const updateCounter = () => {
+      counter.hidden = total() < 2;
+      counter.textContent = T.songOf.replace("{n}", songNum).replace("{t}", total());
+    };
+    songsSel?.addEventListener("change", updateCounter);
+    updateCounter();
+
     function collect() {
       const data = {};
       new FormData(form).forEach((v, k) => {
@@ -264,6 +285,7 @@
         _subject: T.subjectSong + (data.recipient_name ? `: ${data.recipient_name}` : ""),
         _template: "table",
         form: "song",
+        song_number: `${songNum} of ${total()}`,
         _honey: $("[name=_honey]", form).value,
         site_language: lang
       });
@@ -276,6 +298,11 @@
         if (APPS_SCRIPT_URL) $("#w-done .welcome-note").hidden = false;
         $("#w-done h3").focus();
         dots.forEach((d) => d.classList.add("on"));
+        const nextBtn = $("#w-next");
+        if (nextBtn && songNum < total()) {
+          nextBtn.hidden = false;
+          nextBtn.textContent = T.nextSong.replace("{n}", songNum + 1).replace("{t}", total());
+        }
       } catch (ex) {
         err.textContent = T.sendFail;
         $("#w-copy").hidden = false;
@@ -283,23 +310,52 @@
       }
     });
 
+    // next song in a multi-song order: keep "About you" and the song count, clear the rest
+    $("#w-next")?.addEventListener("click", () => {
+      const keep = {};
+      ["your_name", "email", "phone", "heard_from", "songs"].forEach((n) => { const el = form.elements[n]; if (el) keep[n] = el.value; });
+      form.reset();
+      Object.entries(keep).forEach(([n, v]) => { form.elements[n].value = v; });
+      songNum += 1;
+      updateCounter();
+      $("#w-next").hidden = true;
+      $("#w-done").hidden = true;
+      $("#w-done .welcome-note").hidden = true;
+      form.hidden = false;
+      const sendBtn = $("#w-send"); sendBtn.disabled = false; sendBtn.textContent = T.send;
+      show(0);
+    });
+
     show(0, true);
   }
 
-  // ---------- email signup
-  $$(".signup").forEach((f) => {
-    const msg = f.parentElement.querySelector(".signup-msg");
+  // ---------- email capture: save the lead, then open the questions page
+  const START = lang === "es" ? "empezar.html" : "start.html";
+  $$(".lead-form").forEach((f) => {
+    const msg = f.parentElement.querySelector(".lead-msg") || $(".lead-msg", f);
     f.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = $("input[type=email]", f);
       if (!email.checkValidity()) { email.setAttribute("aria-invalid", "true"); msg.textContent = T.emailBad; email.focus(); return; }
       email.removeAttribute("aria-invalid");
+      msg.textContent = "";
+      const name = (f.elements.recipient_name?.value || typedName || "").trim();
+      store.set("myownhit-lead", { email: email.value.trim(), name });
       const btn = $("button", f); btn.disabled = true;
-      try {
-        await send({ form: "signup", email: email.value, list: "demos", site_language: lang, _subject: T.subjectList, _honey: $("[name=_honey]", f).value });
-        f.reset(); msg.textContent = T.signupOk;
-      } catch (ex) { msg.textContent = T.signupFail; }
-      btn.disabled = false;
+      // don't make them wait on the network: give it up to 2.5s, then go either way
+      await Promise.race([
+        send({ form: "lead", email: email.value.trim(), recipient_name: name, site_language: lang, _subject: T.subjectLead, _honey: $("[name=_honey]", f).value }, true).catch(() => {}),
+        new Promise((r) => setTimeout(r, 2500))
+      ]);
+      location.href = START + (name ? "?name=" + encodeURIComponent(name) : "");
     });
+  });
+
+  // ---------- prices (set them in assets/prices.js)
+  const P = window.PRICES || {};
+  $$("[data-price]").forEach((el) => {
+    const v = P[el.dataset.price];
+    el.textContent = typeof v === "number" ? new Intl.NumberFormat(lang === "es" ? "es-US" : "en-US", { style: "currency", currency: P.currency || "USD", maximumFractionDigits: v % 1 ? 2 : 0 }).format(v) : T.priceSoon;
+    el.classList.toggle("soon", typeof v !== "number");
   });
 })();

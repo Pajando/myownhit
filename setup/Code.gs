@@ -1,11 +1,13 @@
 /**
- * My Own Hit — order + signup handler (Google Apps Script web app)
+ * My Own Hit — lead + order handler (Google Apps Script web app)
  *
- * What it does on every song request from the site:
- *   1. Logs the order as a new row in this Google Sheet ("Orders" tab)
- *   2. Emails Alejandro the full order (Reply goes straight to the customer)
- *   3. Emails the customer a welcome: we got it, price within a day, song in 2-5 days
- * On every demo signup: logs it ("Signups" tab) and sends a short welcome.
+ * When someone enters their email on the site ("lead"):
+ *   - Logs it in the "Leads" tab with Status "Started". No email goes out yet.
+ * When they finish the questions ("song"):
+ *   1. Logs the order as a new row in the "Orders" tab
+ *   2. Marks their lead "Finished" (so "Started" rows = people who didn't finish)
+ *   3. Emails Alejandro the full order (Reply goes straight to the customer)
+ *   4. Emails the customer a welcome: we got it, we confirm within a day, song in 2-5 days
  *
  * Emails send from the Google account that deploys this (alejandro@ojedaworks.com).
  * Setup steps are in setup/SETUP.md.
@@ -23,10 +25,8 @@ function doPost(e) {
     var lang = data.site_language === "es" ? "es" : "en";
     if (!isEmail_(data.email)) return reply_({ success: "false", message: "bad email" });
 
-    if (data.form === "signup") {
-      logRow_("Signups", ["Date", "Email", "Language"], [new Date(), data.email, lang]);
-      sendSignupWelcome_(data, lang);
-      MailApp.sendEmail({ to: OWNER, subject: "New demo signup: " + data.email, body: data.email + " (" + lang + ")" });
+    if (data.form === "lead") {
+      logRow_("Leads", ["Date", "Status", "Email", "Song for", "Language"], [new Date(), "Started", data.email, data.recipient_name || "", lang]);
       return reply_({ success: "true" });
     }
 
@@ -34,6 +34,7 @@ function doPost(e) {
     var headers = ["Date", "Status"].concat(fields.map(function (f) { return f[1]; }));
     var row = [new Date(), "New"].concat(fields.map(function (f) { return data[f[0]] || ""; }));
     logRow_("Orders", headers, row);
+    markLeadFinished_(data.email);
     notifyOwner_(data, lang);
     sendWelcome_(data, lang);
     return reply_({ success: "true" });
@@ -46,6 +47,7 @@ function doPost(e) {
 // [form field name, label for the sheet + Alejandro's email]
 var ORDER_FIELDS = [
   ["your_name", "Customer"], ["email", "Email"], ["phone", "Phone"],
+  ["songs", "Songs ordered"], ["song_number", "This is song"],
   ["recipient_name", "Song for"], ["relationship", "Relationship"], ["occasion", "Occasion"],
   ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
   ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
@@ -99,24 +101,16 @@ function sendWelcome_(d, lang) {
   });
 }
 
-function sendSignupWelcome_(d, lang) {
-  var t = SIGNUP[lang];
-  var html = '<div style="font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.55;color:#16133d;max-width:560px">' +
-    "<p>" + t.body + "</p><p>" + t.cta.replace("{url}", '<a href="' + SITE[lang] + '#start" style="color:#e4007c">' + SITE[lang].replace("https://", "") + "</a>") + "</p>" +
-    "<p>Alejandro<br><span style=\"color:#6b6790\">" + SENDER_NAME[lang] + "</span></p></div>";
-  GmailApp.sendEmail(d.email, t.subject, stripHtml_(html), { htmlBody: html, name: SENDER_NAME[lang], replyTo: OWNER });
-}
-
 var WELCOME = {
   en: {
     subject: "We got your story: {who}'s song",
     hi: "Hi {name},",
     got: "Thanks for telling us about {who}. Your story is in, and I read every word of these myself.",
     nextTitle: "Here's what happens next:",
-    step1: "Within 1 day, I'll email you the price. Nothing gets made until you say yes.",
-    step2: "Once you say yes, your song is usually ready in {eta}.",
+    step1: "Within 1 day, I'll email you to confirm the details and how to pay. Nothing gets made until you confirm.",
+    step2: "Once you confirm, your song (3–4 minutes) is usually ready in {eta}.",
     step3: "It comes to this inbox as an MP3. It's yours to keep, play, and share.",
-    example: "You asked to hear an example first, so I'll send one in your style with the price.",
+    example: "You asked to hear an example first, so I'll send one in your style when I confirm the details.",
     date: "You need it by {date}. Got it. If that's tight, I'll tell you straight in my reply.",
     r_for: "Song for", r_occ: "Occasion", r_lang: "Language", r_style: "Style", r_mood: "Mood", youPick: "You pick",
     reply: "Remembered something else? Just reply to this email and add it. The more real detail, the better the song.",
@@ -127,10 +121,10 @@ var WELCOME = {
     hi: "Hola {name}:",
     got: "Gracias por contarnos de {who}. Tu historia ya llegó, y yo mismo leo cada palabra.",
     nextTitle: "Lo que sigue:",
-    step1: "En menos de 1 día te mando el precio por correo. No se hace nada hasta que tú digas que sí.",
-    step2: "Cuando digas que sí, tu canción normalmente está lista en {eta}.",
+    step1: "En menos de 1 día te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes.",
+    step2: "Cuando confirmes, tu canción (de 3 a 4 minutos) normalmente está lista en {eta}.",
     step3: "Te llega a este correo en MP3. Es tuya para guardarla, ponerla y compartirla.",
-    example: "Pediste escuchar un ejemplo primero, así que te mando uno en tu estilo junto con el precio.",
+    example: "Pediste escuchar un ejemplo primero, así que te mando uno en tu estilo cuando confirme los detalles.",
     date: "La necesitas para el {date}. Anotado. Si está muy justo, te lo digo claro en mi respuesta.",
     r_for: "Canción para", r_occ: "Ocasión", r_lang: "Idioma", r_style: "Estilo", r_mood: "Ambiente", youPick: "Tú decide",
     reply: "¿Te acordaste de algo más? Solo responde a este correo y agrégalo. Entre más detalles reales, mejor sale la canción.",
@@ -145,16 +139,15 @@ var ES_VALUES = {
   "Lowrider oldies": "Oldies lowrider"
 };
 
-var SIGNUP = {
-  en: { subject: "You're on the list for new demos",
-        body: "Thanks for signing up. When a new song is up, you'll get one email about it. That's it.",
-        cta: "Ready to make one for someone? Start here: {url}" },
-  es: { subject: "Ya estás en la lista de nuevos demos",
-        body: "Gracias por registrarte. Cuando salga una canción nueva, te llega un correo. Nada más.",
-        cta: "¿Listo para hacerle una a alguien? Empieza aquí: {url}" }
-};
-
 // ---------- helpers
+function markLeadFinished_(email) {
+  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Leads");
+  if (!sh || sh.getLastRow() < 2) return;
+  var vals = sh.getRange(2, 2, sh.getLastRow() - 1, 2).getValues(); // Status, Email
+  for (var i = vals.length - 1; i >= 0; i--) {
+    if (String(vals[i][1]).toLowerCase() === String(email).toLowerCase()) { sh.getRange(i + 2, 2).setValue("Finished"); return; }
+  }
+}
 function logRow_(tab, headers, row) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sh = ss.getSheetByName(tab) || ss.insertSheet(tab);
