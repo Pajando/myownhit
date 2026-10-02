@@ -10,7 +10,7 @@
 window.PRICES = {
   currency: "USD",
   one: 78,      // 1 song, 3-4 minutes (regular)
-  two: 145,     // 2 songs (regular)
+  two: 139,     // 2 songs (regular)
   three: 197,   // 3 songs (regular)
   launch: { one: 49, two: 89, three: 129 }
 };
