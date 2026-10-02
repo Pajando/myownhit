@@ -157,7 +157,7 @@
               <div class="field"><label for="f-email">Tu correo</label><input id="f-email" name="email" type="email" required autocomplete="email" data-q="Correo"></div>
             </div>
             <div class="two">
-              <div class="field"><label for="f-phone">Teléfono<span class="help">Opcional. Solo si prefieres mensajes de texto.</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" data-q="Teléfono"></div>
+              <div class="field"><label for="f-phone">Teléfono<span class="help">Por si necesitamos contactarte sobre la canción.</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required pattern="\D*(\d\D*){10,}" placeholder="(707) 555-0123" data-q="Teléfono"></div>
               <div class="field"><label for="f-heard">¿Cómo nos encontraste?</label>
                 <select id="f-heard" name="heard_from" data-q="Nos encontró por">
                   <option value="">Elige una</option><option>Instagram</option><option>TikTok</option><option>Facebook</option>

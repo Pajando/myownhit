@@ -157,7 +157,7 @@
               <div class="field"><label for="f-email">Your email</label><input id="f-email" name="email" type="email" required autocomplete="email" data-q="Email"></div>
             </div>
             <div class="two">
-              <div class="field"><label for="f-phone">Phone<span class="help">Optional. Only if you'd rather text.</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" data-q="Phone"></div>
+              <div class="field"><label for="f-phone">Phone<span class="help">In case we need to reach you about the song.</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel" required pattern="\D*(\d\D*){10,}" placeholder="(707) 555-0123" data-q="Phone"></div>
               <div class="field"><label for="f-heard">How did you find us?</label>
                 <select id="f-heard" name="heard_from" data-q="Found us through">
                   <option value="">Choose one</option><option>Instagram</option><option>TikTok</option><option>Facebook</option>

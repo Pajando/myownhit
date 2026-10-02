@@ -141,7 +141,7 @@ var QUESTIONS = {
       "Song title idea (optional):",
       "When do you need it?",
       "How many songs?",
-      "Your name, and a phone number if you'd rather text (optional):"
+      "Your name and phone number:"
     ],
     outro: "----------\n\nWhat happens next: within 2–3 days I'll email you to confirm the details and how to pay. Nothing gets made until you confirm. Once you do, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit"
   },
@@ -169,7 +169,7 @@ var QUESTIONS = {
       "Idea para el título (opcional):",
       "¿Para cuándo la necesitas?",
       "¿Cuántas canciones?",
-      "Tu nombre, y un teléfono si prefieres mensajes (opcional):"
+      "Tu nombre y número de teléfono:"
     ],
     outro: "----------\n\nLo que sigue: en 2 a 3 días te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit"
   }
