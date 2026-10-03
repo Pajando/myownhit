@@ -342,10 +342,10 @@ body{background:var(--deep-purple)}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
     /* bright neon glow on the outer edges */
-    radial-gradient(70% 90% at -8% 50%,rgba(176,38,255,.75),transparent 60%),
-    radial-gradient(70% 90% at 108% 50%,rgba(0,179,255,.65),transparent 60%),
-    /* the two halves, blending only right at the middle */
-    linear-gradient(90deg,var(--deep-purple) 0%,#4c08cc 38%,#3a19cf 50%,#0a2fd4 62%,var(--deep-blue) 100%)}
+    radial-gradient(90% 120% at -15% 50%,rgba(176,38,255,.6),transparent 70%),
+    radial-gradient(90% 120% at 115% 50%,rgba(0,179,255,.5),transparent 70%),
+    /* one smooth blend from purple to blue across the whole page */
+    linear-gradient(90deg,var(--deep-purple),var(--deep-blue))}
 /* sections let the neon show through */
 .band,.styles-band{background:rgba(8,4,36,.22)}
 .hero::before{display:none}

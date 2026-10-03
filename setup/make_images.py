@@ -39,7 +39,7 @@ def card(path, small, h1a, h1b, sub):
     W, H = 1200, 630
     # neon purple (left) meeting neon blue (right), like the site background
     im = Image.new("RGBA", (W, H))
-    stops = [(0, (90, 0, 200)), (0.38, (76, 8, 204)), (0.5, (58, 25, 207)), (0.62, (10, 47, 212)), (1, (0, 54, 214))]
+    stops = [(0, (90, 0, 200)), (1, (0, 54, 214))]
     px = im.load()
     for x in range(W):
         t = x / (W - 1)
