@@ -26,7 +26,7 @@ a{color:var(--marigold)}
 .narrow{max-width:44rem}
 
 /* header */
-.top{position:sticky;top:0;z-index:20;background:rgba(22,19,61,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top{position:sticky;top:0;z-index:20;background:rgba(22,19,61,.88);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:1.5rem;min-height:64px}
 .brand{font:400 1.45rem/1 var(--display);color:var(--paper);text-decoration:none}
 .top nav{display:flex;gap:1.25rem;margin-left:auto;align-items:center}
@@ -221,3 +221,31 @@ fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
 .launch-note{display:inline-block;background:var(--marigold);color:var(--ink);font-weight:600;padding:.45rem .9rem;border-radius:999px;margin:0 0 1.5rem}
 .hero .from{margin:-1rem 0 1.5rem;color:var(--muted)}
 .hero .from b{color:var(--marigold)}
+
+/* comfortable finger-size tap areas in the top bar (about 44px tall) */
+.brand,.top nav a{display:inline-flex;align-items:center;min-height:44px}
+.top nav{gap:.35rem 1rem}
+.top nav a{padding:0 .35rem}
+.top nav .lang{min-height:38px;padding:0 .8rem}
+@media (max-width:360px){.brand{font-size:1.25rem}.top .wrap{gap:.75rem}}
+
+/* tablets: bigger record, three price cards in one row */
+@media (min-width:600px) and (max-width:880px){
+  .stage{max-width:640px;aspect-ratio:16/8}
+  .hero .namebox{max-width:36rem}
+}
+@media (min-width:700px){
+  .tiers{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .tier{padding:1.5rem}
+  .tier .price{font-size:clamp(2.1rem,3.6vw,2.8rem)}
+}
+
+/* phones held sideways: text and record side by side so the headline and email box stay on screen */
+@media (orientation:landscape) and (max-height:520px){
+  .hero .wrap{grid-template-columns:1.1fr .9fr;min-height:0;padding-block:1.25rem 2.5rem;align-items:start}
+  .stage{order:0;aspect-ratio:1/1;max-width:340px;margin-top:0;position:sticky;top:76px}
+  .hero h1{font-size:clamp(2.2rem,5vw,3rem)}
+}
+/* smallest phones: keep the brand on one line */
+.brand{white-space:nowrap}
+@media (max-width:360px){.top nav .lang{padding:0 .6rem}.top nav{gap:.2rem .6rem}}
