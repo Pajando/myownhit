@@ -54,7 +54,7 @@ var ORDER_FIELDS = [
   ["recipient_name", "Song for"], ["relationship", "Relationship"], ["occasion", "Occasion"],
   ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
   ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
-  ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Cursing OK?"], ["title_idea", "Title idea"], ["send_examples", "Wants example first"],
+  ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Cursing OK?"], ["title_idea", "Title idea"], ["send_examples", "Wants demos first"],
   ["heard_from", "Found us through"], ["site_language", "Site language"]
 ];
 
@@ -185,7 +185,7 @@ var WELCOME = {
     step1: "Within 2–3 days, I'll email you to confirm the details and how to pay. Nothing gets made until you confirm.",
     step2: "Once you confirm, your song (3–4 minutes) is usually ready in {eta}.",
     step3: "It comes to this inbox as an MP3. It's yours to keep, play, and share.",
-    example: "You asked to hear an example first, so I'll send one in your style when I confirm the details.",
+    example: "You asked to hear demos first, so I'll send some in your style when I confirm the details.",
     date: "You need it by {date}. Got it. If that's tight, I'll tell you straight in my reply.",
     r_for: "Song for", r_occ: "Occasion", r_lang: "Language", r_style: "Style", r_mood: "Mood", youPick: "You pick",
     reply: "Remembered something else? Just reply to this email and add it. The more real detail, the better the song.",
@@ -200,7 +200,7 @@ var WELCOME = {
     step1: "En 2 a 3 días te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes.",
     step2: "Cuando confirmes, tu canción (de 3 a 4 minutos) normalmente está lista en {eta}.",
     step3: "Te llega a este correo en MP3. Es tuya para guardarla, ponerla y compartirla.",
-    example: "Pediste escuchar un ejemplo primero, así que te mando uno en tu estilo cuando confirme los detalles.",
+    example: "Pediste escuchar demos primero, así que te mando algunos en tu estilo cuando confirme los detalles.",
     date: "La necesitas para el {date}. Anotado. Si está muy justo, te lo digo claro en mi respuesta.",
     r_for: "Canción para", r_occ: "Ocasión", r_lang: "Idioma", r_style: "Estilo", r_mood: "Ambiente", youPick: "Tú decide",
     reply: "¿Te acordaste de algo más? Solo responde a este correo y agrégalo. Entre más detalles reales, mejor sale la canción.",

@@ -19,6 +19,7 @@
       soon: "Coming soon", nowPlaying: "Now playing", pick: "Pick a track",
       noDemo: "This demo isn't up yet.",
       demosSoon: "First demos coming soon",
+      all: "All", hearStyle: "Hear a demo: {s}", pause: "Pause",
       required: "Fill in the highlighted fields to keep going.",
       emailBad: "That email address doesn't look complete.",
       sending: "Sending…", send: "Send my song request",
@@ -36,6 +37,7 @@
       soon: "Muy pronto", nowPlaying: "Sonando", pick: "Elige una canción",
       noDemo: "Este demo todavía no está disponible.",
       demosSoon: "Los primeros demos, muy pronto",
+      all: "Todos", hearStyle: "Escuchar un demo: {s}", pause: "Pausa",
       required: "Llena los campos marcados para seguir.",
       emailBad: "Ese correo no parece completo.",
       sending: "Enviando…", send: "Enviar mi pedido",
@@ -96,6 +98,13 @@
   addEventListener("record:ready", () => label(typedName));
 
   // ---------- demos
+  // style names as customers see them (the demo file uses the English value)
+  const STYLE_NAME = lang === "es"
+    ? { "Lowrider oldies": "Oldies lowrider", Corrido: "Corridos", Ranchera: "Rancheras", Banda: "Banda", Cumbia: "Cumbia", Balada: "Baladas", Pop: "Pop", "R&B": "R&B", Country: "Country", "Hip-hop": "Hip-hop", Rock: "Rock" }
+    : { "Lowrider oldies": "Lowrider oldies", Corrido: "Corridos", Ranchera: "Rancheras", Banda: "Banda", Cumbia: "Cumbia", Balada: "Baladas", Pop: "Pop", "R&B": "R&B", Country: "Country", "Hip-hop": "Hip-hop", Rock: "Rock" };
+  const playable = (window.DEMOS || []).filter((d) => d.file);
+  // "Hear demos first" link in the hero: only when there is something to hear
+  if (playable.length) $$(".hear-first").forEach((a) => { a.hidden = false; });
   const list = $("#tracks");
   const audio = $("#audio");
   const demos = (window.DEMOS || []);
@@ -119,8 +128,30 @@
         probe.addEventListener("loadedmetadata", () => { b.querySelector(".d").textContent = fmt(probe.duration); });
       }
       b.addEventListener("click", () => select(i, true));
+      li.dataset.style = d.style || "";
       li.appendChild(b); list.appendChild(li);
     });
+
+    // style buttons above the list: All + every style that has at least one real demo
+    const styles = [...new Set(playable.map((d) => d.style).filter(Boolean))];
+    if (styles.length > 1) {
+      const bar = document.createElement("div");
+      bar.className = "demo-filter";
+      bar.setAttribute("role", "group");
+      bar.setAttribute("aria-label", lang === "es" ? "Filtrar por estilo" : "Filter by style");
+      [""].concat(styles).forEach((st) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.textContent = st ? (STYLE_NAME[st] || st) : T.all;
+        btn.setAttribute("aria-pressed", String(!st));
+        btn.addEventListener("click", () => {
+          $$("button", bar).forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
+          $$("li", list).forEach((li) => { li.hidden = !!st && li.dataset.style !== st; });
+        });
+        bar.appendChild(btn);
+      });
+      list.before(bar);
+    }
 
     const playBtn = $("#play"), bar = $("#bar"), fill = $("#bar i"), time = $("#time"), title = $("#now-title"), note = $("#player-note");
     if (!demos.some((d) => d.file)) title.textContent = T.demosSoon;
@@ -391,6 +422,29 @@
       location.href = START + "?" + q;
     });
   });
+
+  // ---------- in the questions: a play button for the style they just picked
+  const styleBox = $("fieldset[data-q] input[name=style]")?.closest("fieldset");
+  if (styleBox && playable.length) {
+    const wrap = document.createElement("div");
+    wrap.className = "style-demo"; wrap.hidden = true;
+    wrap.innerHTML = '<button type="button" class="btn btn-ghost"></button>';
+    const btn = $("button", wrap), player = new Audio();
+    let shown = null;
+    const setLabel = () => {
+      btn.textContent = (player.paused ? "\u25B6 " : "\u275A\u275A ") + (player.paused ? T.hearStyle.replace("{s}", STYLE_NAME[shown.style] || shown.style) : T.pause);
+    };
+    styleBox.after(wrap);
+    styleBox.addEventListener("change", (e) => {
+      const picked = e.target.checked ? e.target.value : ($$("input[name=style]:checked", styleBox).pop()?.value);
+      const demo = playable.find((d) => d.style === picked);
+      if (!demo) { wrap.hidden = true; player.pause(); return; }
+      if (!shown || shown !== demo) { player.pause(); player.src = demo.file; shown = demo; }
+      wrap.hidden = false; setLabel();
+    });
+    btn.addEventListener("click", () => { player.paused ? player.play().catch(() => {}) : player.pause(); });
+    player.addEventListener("play", setLabel); player.addEventListener("pause", setLabel); player.addEventListener("ended", setLabel);
+  }
 
   // ---------- "answer by email instead" on the questions page
   const eq = $(".byemail");
