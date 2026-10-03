@@ -364,3 +364,8 @@ input[type=text],input[type=email],input[type=tel],input[type=date],select,texta
 .chips .chip-group{flex-basis:100%;margin:.7rem 0 .1rem;font-size:.85rem;font-weight:600;color:var(--muted)}
 .chips .chip-group:first-of-type{margin-top:.2rem}
 .field.car textarea{min-height:6rem}
+
+/* brand lockup: name + tagline, always together */
+.brand{flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:.22rem}
+.brand-tag{font:500 .72rem/1 var(--body);color:var(--muted);letter-spacing:.01em;white-space:nowrap}
+@media (max-width:360px){.brand-tag{font-size:.62rem}}

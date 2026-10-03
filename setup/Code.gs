@@ -17,6 +17,7 @@
 
 var OWNER = "alejandro@ojedaworks.com";
 var SENDER_NAME = { en: "My Own Hit", es: "Mi Propio Hit" };
+var TAGLINE = { en: "Every life deserves a song", es: "Toda vida merece una canción" };
 var SITE = { en: "https://myownhit.com", es: "https://myownhit.com/es.html" };
 var DELIVERY = { en: "2–5 days", es: "2 a 5 días" };
 
@@ -96,7 +97,7 @@ function sendWelcome_(d, lang) {
     extras.map(function (x) { return "<p>" + x + "</p>"; }).join("") +
     '<table style="border-collapse:collapse;font-size:15px;margin:8px 0 16px">' + recap + "</table>" +
     "<p>" + t.reply + "</p>" +
-    "<p>" + t.sign + "<br>Alejandro<br><span style=\"color:#6b6790\">" + SENDER_NAME[lang] + " · " +
+    "<p>" + t.sign + "<br>Alejandro<br><span style=\"color:#6b6790\"><b>" + SENDER_NAME[lang] + "</b> · " + TAGLINE[lang] + "<br>" +
     '<a href="' + SITE[lang] + '" style="color:#e4007c">' + SITE[lang].replace("https://", "") + "</a></span></p>" +
     "</div>";
 
@@ -136,7 +137,7 @@ var QUESTIONS = {
       "Optional: got a lowrider? Tell me everything about it: year, make, model, its name, the colors, and everything that went into it (paint, chrome, hydraulics, interior, rims, how long it took, who helped you build it).",
       "Need it by a certain date? And your name and phone number."
     ],
-    outro: "----------\n\nWhat happens next: I'll send you a link to pay, then within 2–3 days I'll go over your answers. If anything needs clarifying, I'll text or email you a quick question. After that, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit"
+    outro: "----------\n\nWhat happens next: I'll send you a link to pay, then within 2–3 days I'll go over your answers. If anything needs clarifying, I'll text or email you a quick question. After that, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit · Every life deserves a song"
   },
   es: {
     subject: "Tu canción: las preguntas (contesta aquí o en la página)",
@@ -156,7 +157,7 @@ var QUESTIONS = {
       "Opcional: ¿tienes un lowrider? Cuéntame todo: año, marca, modelo, su nombre, los colores y todo lo que le metiste (pintura, cromo, hidráulicos, interior, rines, cuánto tiempo te tomó, quién te ayudó a armarlo).",
       "¿La necesitas para una fecha? Y tu nombre y número de teléfono."
     ],
-    outro: "----------\n\nLo que sigue: te mando un link para pagar, y en 2 a 3 días reviso tus respuestas. Si algo necesita aclararse, te escribo o te mando un mensaje con una pregunta rápida. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit"
+    outro: "----------\n\nLo que sigue: te mando un link para pagar, y en 2 a 3 días reviso tus respuestas. Si algo necesita aclararse, te escribo o te mando un mensaje con una pregunta rápida. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit · Toda vida merece una canción"
   }
 };
 

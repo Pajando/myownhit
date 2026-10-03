@@ -35,6 +35,9 @@ def record(size):
     return im.resize((size, size), Image.LANCZOS)
 
 
+TAGS = {"My Own Hit": "Every life deserves a song", "Mi Propio Hit": "Toda vida merece una canción"}
+
+
 def card(path, small, h1a, h1b, sub):
     W, H = 1200, 630
     # neon purple (left) meeting neon blue (right), like the site background
@@ -56,8 +59,9 @@ def card(path, small, h1a, h1b, sub):
     im.alpha_composite(rec, (705, 196))
     d = ImageDraw.Draw(im)
     d.text((70, 70), small, font=ImageFont.truetype(G, 40), fill=PAPER)
+    d.text((72, 120), TAGS[small], font=ImageFont.truetype(FUT, 26), fill=MUTED)
     f = ImageFont.truetype(G, 96)
-    d.text((66, 172), h1a, font=f, fill=PAPER); d.text((66, 284), h1b, font=f, fill=PAPER)
+    d.text((66, 186), h1a, font=f, fill=PAPER); d.text((66, 298), h1b, font=f, fill=PAPER)
     fs = ImageFont.truetype(FUT, 34); y = 432
     for line in sub:
         d.text((70, y), line, font=fs, fill=MUTED); y += 46
