@@ -18,6 +18,7 @@
     en: {
       soon: "Coming soon", nowPlaying: "Now playing", pick: "Pick a track",
       noDemo: "This demo isn't up yet.",
+      demosSoon: "First demos coming soon",
       required: "Fill in the highlighted fields to keep going.",
       emailBad: "That email address doesn't look complete.",
       sending: "Sending…", send: "Send my song request",
@@ -34,6 +35,7 @@
     es: {
       soon: "Muy pronto", nowPlaying: "Sonando", pick: "Elige una canción",
       noDemo: "Este demo todavía no está disponible.",
+      demosSoon: "Los primeros demos, muy pronto",
       required: "Llena los campos marcados para seguir.",
       emailBad: "Ese correo no parece completo.",
       sending: "Enviando…", send: "Enviar mi pedido",
@@ -115,6 +117,7 @@
     });
 
     const playBtn = $("#play"), bar = $("#bar"), fill = $("#bar i"), time = $("#time"), title = $("#now-title"), note = $("#player-note");
+    if (!demos.some((d) => d.file)) title.textContent = T.demosSoon;
 
     function select(i, autoplay) {
       const d = demos[i];
@@ -212,6 +215,12 @@
     songsSel?.addEventListener("change", updateCounter);
     updateCounter();
 
+    function fillOwnName() {
+      const me = $("[name=about]:checked", form)?.value !== "someone";
+      const yours = form.elements.your_name, theirs = form.elements.recipient_name;
+      if (me && yours && theirs && !yours.value && theirs.value) yours.value = theirs.value;
+    }
+
     function collect() {
       const data = {};
       new FormData(form).forEach((v, k) => {
@@ -285,7 +294,7 @@
       const b = e.target.closest("[data-go]");
       if (!b) return;
       const dir = b.dataset.go;
-      if (dir === "next") { if (valid(steps[at])) show(at + 1); }
+      if (dir === "next") { if (valid(steps[at])) { fillOwnName(); show(at + 1); } }
       else if (dir === "back") show(at - 1);
       else if (dir === "copy") {
         navigator.clipboard?.writeText(asText()).then(() => { err.textContent = T.copied; });
@@ -295,7 +304,7 @@
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       // Enter in a text box submits the form: treat it as "Next" until the last step
-      if (at < steps.length - 1) { if (valid(steps[at])) show(at + 1); return; }
+      if (at < steps.length - 1) { if (valid(steps[at])) { fillOwnName(); show(at + 1); } return; }
       const bad = steps.findIndex((s) => !valid(s));
       if (bad > -1) { show(bad); valid(steps[bad]); return; }
       const sendBtn = $("#w-send");
@@ -420,6 +429,13 @@
     }
   });
   if (L) $$("[data-launch-note]").forEach((el) => { el.hidden = false; });
+  if (L) $$("[data-launch-only]").forEach((el) => { el.hidden = false; });
+  // today's price only (no crossed-out regular price), for sentences like "songs from $49"
+  $$("[data-price-now]").forEach((el) => {
+    const v = now(el.dataset.priceNow);
+    if (typeof v === "number") el.textContent = money(v);
+    else el.closest("p")?.setAttribute("hidden", "");
+  });
   // "Save $X": during a launch, regular price minus launch price for that package.
   // Without a launch, the same number of single songs minus the package price.
   $$("[data-save]").forEach((el) => {

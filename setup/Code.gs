@@ -55,7 +55,7 @@ var ORDER_FIELDS = [
   ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
   ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
   ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Cursing OK?"], ["title_idea", "Title idea"], ["send_examples", "Wants example first"],
-  ["business_use", "Business use"], ["heard_from", "Found us through"], ["site_language", "Site language"]
+  ["heard_from", "Found us through"], ["site_language", "Site language"]
 ];
 
 function notifyOwner_(d, lang) {

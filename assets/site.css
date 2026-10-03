@@ -219,3 +219,5 @@ fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
 .tier .save{margin:-.5rem 0 .9rem;font-weight:600;color:var(--rosa);filter:brightness(1.35)}
 .tier .price .was{font:500 1.25rem/1 var(--body);color:var(--muted);text-decoration-thickness:2px;vertical-align:middle}
 .launch-note{display:inline-block;background:var(--marigold);color:var(--ink);font-weight:600;padding:.45rem .9rem;border-radius:999px;margin:0 0 1.5rem}
+.hero .from{margin:-1rem 0 1.5rem;color:var(--muted)}
+.hero .from b{color:var(--marigold)}
