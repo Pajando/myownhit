@@ -310,3 +310,9 @@ fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
 main{overflow-x:clip}
 .hero h1{font-size:clamp(2.3rem,5vw,4.1rem);line-height:1.04;text-wrap:balance}
 .nw{white-space:nowrap}
+
+/* FAQ: every answer always visible (no dropdowns) */
+.faq .qa{border-bottom:1px solid var(--line);padding:1.4rem 0}
+.faq .qa:first-of-type{padding-top:.5rem}
+.faq .qa h3{margin:0 0 .5rem;font-size:1.15rem;line-height:1.35}
+.faq .qa p{margin:0;color:var(--muted)}

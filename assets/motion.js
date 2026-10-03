@@ -12,7 +12,7 @@
   // ---------- sections swing into place as they scroll into view (each one once)
   const revealSel = [
     "main section:not(.hero) h2", "main section:not(.hero) .sub", ".lyric", ".steps li", ".tier",
-    ".more", ".incl li", ".tracks li", ".player", ".faq details", ".styles-ring"
+    ".more", ".incl li", ".tracks li", ".player", ".faq .qa", ".styles-ring"
   ].join(",");
   const items = $$(revealSel);
   items.forEach((el) => {
