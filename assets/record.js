@@ -146,6 +146,57 @@ if (renderer && stage) {
   rim.position.set(1.8, 0.6, -1.4);
   scene.add(rim);
 
+  // ---- music notes that float up off the record (more of them while a song plays)
+  const noteTex = ["\u266A", "\u266B", "\u266A", "\u2669"].map((glyph, i) => {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 128;
+    const c = cv.getContext("2d");
+    c.font = "96px Georgia, serif"; c.textAlign = "center"; c.textBaseline = "middle";
+    c.shadowColor = i % 2 ? "#e4007c" : "#f6a821"; c.shadowBlur = 18;
+    c.fillStyle = i % 2 ? "#ff5fb0" : "#f6a821";
+    c.fillText(glyph, 64, 70);
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; return t;
+  });
+  const notes = [];
+  for (let i = 0; i < 22; i++) {
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: noteTex[i % noteTex.length], transparent: true, depthWrite: false, opacity: 0 }));
+    sp.visible = false; scene.add(sp);
+    notes.push({ sp, life: 0, max: 1, vx: 0, vy: 0, sway: 0, seed: Math.random() * 6 });
+  }
+  let spawnClock = 0;
+  function spawnNote() {
+    const n = notes.find((x) => !x.sp.visible);
+    if (!n) return;
+    const a = Math.random() * Math.PI * 2, r = 0.45 + Math.random() * 0.5;
+    n.sp.position.set(tilt.position.x + Math.cos(a) * r, 0.1, Math.sin(a) * r * 0.6);
+    n.life = 0; n.max = 2.2 + Math.random() * 1.6;
+    n.vy = 0.35 + Math.random() * 0.35; n.sway = 0.15 + Math.random() * 0.2;
+    const s = (0.2 + Math.random() * 0.14) * baseScale; n.sp.scale.set(s, s, s);
+    n.sp.visible = true;
+  }
+  function updateNotes(dt) {
+    if (reduced) return;
+    spawnClock += dt * (playing ? 7 : 1.1);
+    while (spawnClock > 1) { spawnNote(); spawnClock -= 1; }
+    notes.forEach((n) => {
+      if (!n.sp.visible) return;
+      n.life += dt;
+      const t = n.life / n.max;
+      if (t >= 1) { n.sp.visible = false; return; }
+      n.sp.position.y += n.vy * dt;
+      n.sp.position.x += Math.sin(n.life * 2 + n.seed) * n.sway * dt;
+      n.sp.material.opacity = Math.min(1, t * 5) * (1 - t);
+      n.sp.material.rotation = Math.sin(n.life * 1.5 + n.seed) * 0.4;
+    });
+  }
+
+  // ---- as the page scrolls down, the record tips toward you and lifts a little
+  let scrollT = 0;
+  const hero = stage.closest(".hero") || stage;
+  addEventListener("scroll", () => {
+    const h = hero.offsetHeight || 1;
+    scrollT = Math.max(0, Math.min(1, scrollY / h));
+  }, { passive: true });
+
   // ---- sizing
   let baseScale = 1;
   function resize() {
@@ -190,9 +241,12 @@ if (renderer && stage) {
       spin.rotation.y -= speed * dt;
 
       pivot.rotation.y += ((playing ? ARM_PLAY : ARM_REST) - pivot.rotation.y) * Math.min(1, dt * 3);
-      tilt.rotation.x += (pointer.y * 0.25 - tilt.rotation.x) * Math.min(1, dt * 4);
+      const scrollTip = reduced ? 0 : scrollT * 0.9;
+      tilt.rotation.x += (pointer.y * 0.25 + scrollTip - tilt.rotation.x) * Math.min(1, dt * 4);
+      if (!reduced) tilt.position.y += scrollT * 0.35;
       tilt.rotation.y += (pointer.x * 0.35 - tilt.rotation.y) * Math.min(1, dt * 4);
 
+      updateNotes(dt);
       renderer.render(scene, camera);
     }
     requestAnimationFrame(frame);

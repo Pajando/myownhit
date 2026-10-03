@@ -249,3 +249,62 @@ fieldset[aria-invalid=true] label>span{border-color:#ff8db5}
 /* smallest phones: keep the brand on one line */
 .brand{white-space:nowrap}
 @media (max-width:360px){.top nav .lang{padding:0 .6rem}.top nav{gap:.2rem .6rem}}
+
+/* ================= motion layer (motion.js) ================= */
+/* sections swing up into place; uses translate/rotate so it never fights the tilt transform */
+.moving .wrap,.moving .lyrics,.moving .tiers,.moving .steps,.moving .tracks,.moving .incl,.moving .faq{perspective:1100px}
+.moving .reveal{opacity:0;translate:0 34px;rotate:x 16deg;transform-origin:50% 100%;
+  transition:opacity .7s ease var(--d,0ms),translate .9s cubic-bezier(.2,.8,.2,1) var(--d,0ms),rotate .9s cubic-bezier(.2,.8,.2,1) var(--d,0ms)}
+.moving .reveal.in{opacity:1;translate:0 0;rotate:none}
+
+/* 3D tilt toward the mouse + moving light sheen */
+.tilt{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.tilt:not(.player){position:relative}
+.tilt.tilting{transition:transform .08s linear}
+.tilt::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,244,230,.10),transparent 45%)}
+.tilt.tilting::after{opacity:1}
+
+/* rotating 3D ring of music styles */
+.styles-band{padding-block:clamp(2.5rem,6vw,4rem);overflow:hidden;background:linear-gradient(180deg,var(--ink),var(--ink-2))}
+.styles-band .cap{text-align:center;color:var(--muted);margin:0 0 1.5rem;font-weight:500}
+.styles-ring{--r:min(420px,44vw);height:5.5rem;perspective:1200px;display:grid;place-items:center}
+.styles-ring ul{list-style:none;margin:0;padding:0;position:relative;width:1px;height:1px;transform-style:preserve-3d;animation:ring 36s linear infinite}
+.styles-ring li{position:absolute;left:0;top:0;translate:-50% -50%;white-space:nowrap;
+  transform:rotateY(calc(var(--i) * 30deg)) translateZ(var(--r));backface-visibility:hidden;
+  font:400 clamp(1.5rem,4.2vw,2.6rem)/1 var(--display);color:var(--paper)}
+.styles-ring li:nth-child(3n+1){color:var(--marigold)}
+.styles-ring li:nth-child(3n+2){color:#ff5fb0}
+@keyframes ring{to{transform:rotateY(-360deg)}}
+.styles-band:hover .styles-ring ul{animation-play-state:paused}
+.calm .styles-ring{height:auto;perspective:none}
+.calm .styles-ring ul{animation:none;width:auto;height:auto;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.25rem;transform:none}
+.calm .styles-ring li{position:static;translate:none;transform:none;font-size:1.4rem}
+
+/* mini spinning record (questions + pricing pages) */
+.startpage .wrap,.pricepage .wrap{position:relative}
+.mini-rec{position:absolute;right:0;top:-.5rem;width:clamp(84px,14vw,150px);aspect-ratio:1;perspective:600px;pointer-events:none}
+.mini-disc{width:100%;height:100%;border-radius:50%;transform:rotateX(58deg) rotateZ(0);
+  background:conic-gradient(from 20deg,rgba(255,236,250,.16) 0 4%,transparent 9% 50%,rgba(255,236,250,.1) 54%,transparent 60%),
+    repeating-radial-gradient(circle,#101014 0 2px,#1d1d24 2px 4px);
+  box-shadow:0 30px 40px -18px rgba(0,0,0,.7),0 0 60px rgba(228,0,124,.35);display:grid;place-items:center;
+  animation:mini 3.2s linear infinite}
+.mini-label{width:36%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#16133d 0 6%,var(--rosa) 7% 78%,var(--marigold) 79% 84%,var(--rosa) 85%)}
+@keyframes mini{to{transform:rotateX(58deg) rotateZ(360deg)}}
+.mini-rec.boost .mini-disc{animation:mini .45s linear 4}
+.calm .mini-disc{animation:none}
+.startpage .pagetitle,.pricepage .pagetitle,.startpage>.wrap>.sub,.pricepage>.wrap>.sub{padding-right:clamp(90px,15vw,160px)}
+@media (max-width:560px){.mini-rec{top:-1.25rem;width:72px}.startpage .pagetitle,.pricepage .pagetitle{padding-right:76px}.startpage>.wrap>.sub,.pricepage>.wrap>.sub{padding-right:0}}
+
+/* equalizer bars next to "Now playing" */
+.eq{display:inline-flex;gap:3px;align-items:flex-end;height:14px;vertical-align:-2px}
+.eq i{width:3px;height:4px;background:var(--marigold);border-radius:2px}
+.eq.on i{animation:eq .9s ease-in-out infinite}
+.eq.on i:nth-child(2){animation-delay:-.3s}.eq.on i:nth-child(3){animation-delay:-.6s}.eq.on i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{height:3px}50%{height:14px}}
+@media (max-width:600px){
+  .styles-ring{--r:46vw;height:4rem}
+  .styles-ring li{font-size:1.15rem}
+}
+/* 3D pieces (mini record, style ring) must never cause sideways scrolling; clip keeps sticky elements working */
+main{overflow-x:clip}
