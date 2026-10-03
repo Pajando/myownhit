@@ -99,7 +99,7 @@ function sendWelcome_(d, lang) {
     '<a href="' + SITE[lang] + '" style="color:#e4007c">' + SITE[lang].replace("https://", "") + "</a></span></p>" +
     "</div>";
 
-  GmailApp.sendEmail(d.email, t.subject.replace("{who}", d.recipient_name || ""), stripHtml_(html), {
+  MailApp.sendEmail(d.email, t.subject.replace("{who}", d.recipient_name || ""), stripHtml_(html), {
     htmlBody: html, name: SENDER_NAME[lang], replyTo: OWNER
   });
 }
@@ -113,7 +113,7 @@ function sendQuestions_(d, lang) {
   var body = q.intro.replace("{link}", link) + "\n\n" +
     q.list.map(function (x, i) { return (i + 1) + ". " + x + "\n\n"; }).join("") +
     q.outro;
-  GmailApp.sendEmail(d.email, q.subject, body, { name: SENDER_NAME[lang], replyTo: OWNER });
+  MailApp.sendEmail(d.email, q.subject, body, { name: SENDER_NAME[lang], replyTo: OWNER });
 }
 
 var QUESTIONS = {
