@@ -327,3 +327,37 @@ main{overflow-x:clip}
 .style-demo .btn{padding:.7rem 1.1rem;font-size:.95rem}
 .done .pay{margin:1rem 0 1.25rem}
 .done .pay p{margin:0 0 .8rem}
+
+/* ================= NEON: purple on the left, blue on the right, meeting in the middle ================= */
+:root{
+  --neon-purple:#b026ff; --neon-blue:#00b3ff;      /* bright edge glow */
+  --deep-purple:#5a00c8; --deep-blue:#0036d6;      /* behind text: white 8.5:1 / 7.7:1 */
+  --marigold:#ffc94d;                              /* brighter gold: 5.5:1+ on both sides */
+  --muted:#d9d4f5;
+  --glass:rgba(12,6,48,.58); --glass-2:rgba(12,6,48,.42);
+  --line:rgba(255,244,230,.2);
+}
+body{background:var(--deep-purple)}
+/* fixed backdrop (a fixed layer instead of background-attachment, which iPhones ignore) */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    /* the seam: where the two colors touch */
+    linear-gradient(90deg,transparent 47%,rgba(205,170,255,.30) 49.6%,rgba(160,210,255,.30) 50.4%,transparent 53%),
+    /* bright neon glow on the outer edges */
+    radial-gradient(70% 90% at -8% 50%,rgba(176,38,255,.75),transparent 60%),
+    radial-gradient(70% 90% at 108% 50%,rgba(0,179,255,.65),transparent 60%),
+    /* the two halves, blending only right at the middle */
+    linear-gradient(90deg,var(--deep-purple) 0%,#4c08cc 38%,#3a19cf 50%,#0a2fd4 62%,var(--deep-blue) 100%)}
+/* sections let the neon show through */
+.band,.styles-band{background:rgba(8,4,36,.22)}
+.hero::before{display:none}
+.top{background:rgba(14,8,52,.5)}
+footer{background:rgba(8,4,36,.35)}
+/* cards and forms: dark glass so text stays crisp */
+.namebox,.wizard,.tier,.player,.lyric,.byemail,.more{background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.lyric{background:var(--glass-2)}
+.tier:nth-child(2){border-color:var(--neon-purple);box-shadow:0 0 0 1px rgba(176,38,255,.35),0 0 40px rgba(176,38,255,.25)}
+input[type=text],input[type=email],input[type=tel],input[type=date],select,textarea{background:rgba(8,4,36,.6)}
+.launch-note{box-shadow:0 0 24px rgba(255,201,77,.35)}
+.btn-gold{box-shadow:0 0 22px rgba(255,201,77,.28)}
+.btn-gold:hover{background:#ffd76e}
