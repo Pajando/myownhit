@@ -112,7 +112,10 @@ var START = { en: "https://myownhit.com/start.html", es: "https://myownhit.com/e
 function sendQuestions_(d, lang) {
   var q = QUESTIONS[lang];
   var link = START[lang] + "?about=" + (d.about === "someone" ? "someone" : "me") + (d.recipient_name ? "&name=" + encodeURIComponent(d.recipient_name) : "");
-  var body = q.intro.replace("{link}", link) + "\n\n" +
+  // greeting: their own first name if the song is about them, otherwise the person it's about
+  var who = String(d.recipient_name || "").trim();
+  var hello = !who ? q.hiNone : d.about === "someone" ? q.hiSomeone.replace("{name}", who) : q.hiMe.replace("{name}", first_(who));
+  var body = hello + " " + q.intro.replace("{link}", link) + "\n\n" +
     q.list.map(function (x, i) { return (i + 1) + ". " + x + "\n\n"; }).join("") +
     q.outro;
   MailApp.sendEmail(d.email, q.subject, body, { name: SENDER_NAME[lang], replyTo: OWNER });
@@ -121,7 +124,8 @@ function sendQuestions_(d, lang) {
 var QUESTIONS = {
   en: {
     subject: "Your song: the questions (answer here or on the site)",
-    intro: "Hi! Thanks for starting your song. Two ways to give us the details. Pick whichever is easier:\n\n" +
+    hiMe: "Hi {name}! Thanks for starting your song.", hiSomeone: "Hi! Thanks for starting {name}'s song.", hiNone: "Hi! Thanks for starting your song.",
+    intro: "Two ways to give us the details. Pick whichever is easier:\n\n" +
       "ON THE SITE (about 5 minutes):\n{link}\n\n" +
       "BY EMAIL: hit Reply and type your answers under each question. Short answers are fine. Skip anything you're not sure about.\n" +
       "Easier to talk than type? Record a voice memo telling the story and attach it to your reply.\n\n" +
@@ -141,7 +145,8 @@ var QUESTIONS = {
   },
   es: {
     subject: "Tu canción: las preguntas (contesta aquí o en la página)",
-    intro: "¡Hola! Gracias por empezar tu canción. Hay dos formas de darnos los detalles. Escoge la más fácil:\n\n" +
+    hiMe: "¡Hola {name}! Gracias por empezar tu canción.", hiSomeone: "¡Hola! Gracias por empezar la canción de {name}.", hiNone: "¡Hola! Gracias por empezar tu canción.",
+    intro: "Hay dos formas de darnos los detalles. Escoge la más fácil:\n\n" +
       "EN LA PÁGINA (unos 5 minutos):\n{link}\n\n" +
       "POR CORREO: dale Responder y escribe tus respuestas debajo de cada pregunta. Respuestas cortas están bien. Sáltate lo que no sepas.\n" +
       "¿Es más fácil hablar que escribir? Graba una nota de voz contando la historia y mándala en tu respuesta.\n\n" +
