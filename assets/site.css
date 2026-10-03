@@ -316,3 +316,4 @@ main{overflow-x:clip}
 .faq .qa:first-of-type{padding-top:.5rem}
 .faq .qa h3{margin:0 0 .5rem;font-size:1.15rem;line-height:1.35}
 .faq .qa p{margin:0;color:var(--muted)}
+.songs-help{margin:-.6rem 0 1.3rem;font-size:.9rem;color:var(--muted)}

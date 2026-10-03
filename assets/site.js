@@ -70,7 +70,13 @@
     const me = v !== "someone";
     $$("[data-me]", root).forEach((el) => { el.textContent = me ? el.dataset.me : el.dataset.them; });
     $$("[data-me-ph]", root).forEach((el) => { el.placeholder = me ? el.dataset.mePh : el.dataset.themPh; });
-    $$("[data-them-only]", root).forEach((el) => { el.hidden = me; });
+    // choices that only make sense for one side (e.g. "Birthday" vs "My life story"): hide and clear the others
+    const only = (el, hide) => {
+      el.hidden = hide;
+      if (hide) { const r = el.querySelector("input[type=radio]"); if (r) r.checked = false; }
+    };
+    $$("[data-them-only]", root).forEach((el) => only(el, me));
+    $$("[data-me-only]", root).forEach((el) => only(el, !me));
   }
   $$("form").forEach((f) => {
     f.addEventListener("change", (e) => { if (e.target.name === "about") applyAbout(f, e.target.value); });
@@ -199,20 +205,20 @@
     const aboutVal = params.get("about") || lead.about;
     if (aboutVal && !draft) { const r = $(`[name=about][value="${aboutVal === "someone" ? "someone" : "me"}"]`, form); if (r) r.checked = true; }
     applyAbout(form, $("[name=about]:checked", form)?.value);
-    const songsSel = $("#f-songs");
-    if (songsSel && ["1", "2", "3"].includes(params.get("songs"))) songsSel.value = params.get("songs");
+    const songsPick = () => $("[name=songs]:checked", form);
+    if (["1", "2", "3"].includes(params.get("songs"))) { const r = $(`[name=songs][value="${params.get("songs")}"]`, form); if (r) r.checked = true; }
 
     let songNum = 1;
     const counter = document.createElement("p");
     counter.className = "song-count";
     counter.hidden = true;
     form.parentElement.prepend(counter);
-    const total = () => Number(songsSel ? songsSel.value : 1) || 1;
+    const total = () => Number(songsPick()?.value) || 1;
     const updateCounter = () => {
       counter.hidden = total() < 2;
       counter.textContent = T.songOf.replace("{n}", songNum).replace("{t}", total());
     };
-    songsSel?.addEventListener("change", updateCounter);
+    form.addEventListener("change", (e) => { if (e.target.name === "songs") updateCounter(); });
     updateCounter();
 
     function fillOwnName() {
