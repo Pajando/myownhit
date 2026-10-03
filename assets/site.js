@@ -3,7 +3,7 @@
 (function () {
   // Paste the Google Apps Script web-app URL here once it's deployed (see setup/SETUP.md).
   // While it's empty, forms fall back to FormSubmit (no welcome email to the customer).
-  const APPS_SCRIPT_URL = "";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzjzQweU4jjec9o0IUMgGpBoiXUO9ebJKUejCEGeYI77Hhjkl9Qd5pLU7rYQ9FYiRuk/exec";
   const FORMSUBMIT = "https://formsubmit.co/ajax/alejandro@ojedaworks.com";
   // Apps Script needs text/plain (no CORS preflight); FormSubmit takes JSON.
   async function send(body, keepalive) {
