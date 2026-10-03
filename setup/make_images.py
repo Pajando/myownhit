@@ -49,7 +49,6 @@ def card(path, small, h1a, h1b, sub):
         for y in range(H): px[x, y] = col + (255,)
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0)); g = ImageDraw.Draw(glow)
     g.ellipse([-500, -150, 260, 780], fill=(176, 38, 255, 150)); g.ellipse([940, -150, 1700, 780], fill=(0, 179, 255, 130))
-    g.rectangle([588, 0, 612, H], fill=(205, 180, 255, 90))
     im = Image.alpha_composite(im, glow.filter(ImageFilter.GaussianBlur(70)))
     rec = record(500).resize((500, 318), Image.LANCZOS)  # squash into an ellipse for a tilted look
     shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0)); ImageDraw.Draw(shadow).ellipse([725, 240, 1225, 568], fill=(0, 0, 0, 150))

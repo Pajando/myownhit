@@ -341,8 +341,6 @@ body{background:var(--deep-purple)}
 /* fixed backdrop (a fixed layer instead of background-attachment, which iPhones ignore) */
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
   background:
-    /* the seam: where the two colors touch */
-    linear-gradient(90deg,transparent 47%,rgba(205,170,255,.30) 49.6%,rgba(160,210,255,.30) 50.4%,transparent 53%),
     /* bright neon glow on the outer edges */
     radial-gradient(70% 90% at -8% 50%,rgba(176,38,255,.75),transparent 60%),
     radial-gradient(70% 90% at 108% 50%,rgba(0,179,255,.65),transparent 60%),
