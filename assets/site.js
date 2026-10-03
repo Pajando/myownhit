@@ -363,6 +363,20 @@
         form.hidden = true;
         $("#w-done").hidden = false;
         if (APPS_SCRIPT_URL) $("#w-done .welcome-note").hidden = false;
+        // pay button for the whole package, shown once (after the first song of the order)
+        const key = { 1: "one", 2: "two", 3: "three" }[total()] || "one";
+        const link = ((window.PRICES || {}).payLinks || {})[key];
+        const payBox = $("#w-done .pay"), noPay = $("#w-done .no-pay");
+        if (payBox && noPay) {
+          const showPay = !!link && songNum === 1;
+          payBox.hidden = !showPay;
+          noPay.hidden = showPay || songNum > 1;
+          if (showPay) {
+            $(".pay-btn", payBox).href = link;
+            const v = now(key);
+            $(".pay-amt", payBox).textContent = typeof v === "number" ? money(v) : "";
+          }
+        }
         $("#w-done h3").focus();
         dots.forEach((d) => d.classList.add("on"));
         const nextBtn = $("#w-next");

@@ -143,7 +143,7 @@ var QUESTIONS = {
       "How many songs?",
       "Your name and phone number:"
     ],
-    outro: "----------\n\nWhat happens next: within 2–3 days I'll email you to confirm the details and how to pay. Nothing gets made until you confirm. Once you do, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit"
+    outro: "----------\n\nWhat happens next: I'll send you a link to pay, then within 2–3 days I'll go over your answers. If anything needs clarifying, I'll text or email you a quick question. After that, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit"
   },
   es: {
     subject: "Tu canción: las preguntas (contesta aquí o en la página)",
@@ -171,7 +171,7 @@ var QUESTIONS = {
       "¿Cuántas canciones?",
       "Tu nombre y número de teléfono:"
     ],
-    outro: "----------\n\nLo que sigue: en 2 a 3 días te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit"
+    outro: "----------\n\nLo que sigue: te mando un link para pagar, y en 2 a 3 días reviso tus respuestas. Si algo necesita aclararse, te escribo o te mando un mensaje con una pregunta rápida. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit"
   }
 };
 
@@ -182,8 +182,8 @@ var WELCOME = {
     got: "Thanks for telling us about {who}. Your story is in, and I read every word of these myself.",
     gotMe: "Thanks for trusting us with your story. It's in, and I read every word of these myself.",
     nextTitle: "Here's what happens next:",
-    step1: "Within 2–3 days, I'll email you to confirm the details and how to pay. Nothing gets made until you confirm.",
-    step2: "Once you confirm, your song (3–4 minutes) is usually ready in {eta}.",
+    step1: "Within 2–3 days I'll go over your story. If anything needs clarifying, I'll text or email you a quick question.",
+    step2: "Once everything's set, your song (3–4 minutes) is usually ready in {eta}.",
     step3: "It comes to this inbox as an MP3. It's yours to keep, play, and share.",
     example: "You asked to hear demos first, so I'll send some in your style when I confirm the details.",
     date: "You need it by {date}. Got it. If that's tight, I'll tell you straight in my reply.",
@@ -197,8 +197,8 @@ var WELCOME = {
     got: "Gracias por contarnos de {who}. Tu historia ya llegó, y yo mismo leo cada palabra.",
     gotMe: "Gracias por confiarnos tu historia. Ya llegó, y yo mismo leo cada palabra.",
     nextTitle: "Lo que sigue:",
-    step1: "En 2 a 3 días te escribo para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes.",
-    step2: "Cuando confirmes, tu canción (de 3 a 4 minutos) normalmente está lista en {eta}.",
+    step1: "En 2 a 3 días reviso tu historia. Si algo necesita aclararse, te escribo o te mando un mensaje con una pregunta rápida.",
+    step2: "Cuando todo esté listo, tu canción (de 3 a 4 minutos) normalmente está lista en {eta}.",
     step3: "Te llega a este correo en MP3. Es tuya para guardarla, ponerla y compartirla.",
     example: "Pediste escuchar demos primero, así que te mando algunos en tu estilo cuando confirme los detalles.",
     date: "La necesitas para el {date}. Anotado. Si está muy justo, te lo digo claro en mi respuesta.",

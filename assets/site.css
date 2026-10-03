@@ -325,3 +325,5 @@ main{overflow-x:clip}
 .demo-filter button[aria-pressed=true]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .style-demo{margin:-.4rem 0 1.4rem}
 .style-demo .btn{padding:.7rem 1.1rem;font-size:.95rem}
+.done .pay{margin:1rem 0 1.25rem}
+.done .pay p{margin:0 0 .8rem}

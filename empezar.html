@@ -193,7 +193,7 @@
             <p class="stepname">Paso 5 de 5</p>
             <h3>Revisa tus respuestas</h3>
             <dl id="review" class="review"></dl>
-            <p class="fine">En 2 a 3 días te llega un correo para confirmar los detalles. No se hace nada hasta que confirmes.</p>
+            <p class="fine">Lo que sigue: aseguras tu precio. Luego, en 2 a 3 días revisamos tu historia y te escribimos si algo necesita aclararse.</p>
           </div>
 
           <p id="w-err" class="err" role="alert"></p>
@@ -207,7 +207,12 @@
 
         <div id="w-done" class="done" hidden>
           <h3 tabindex="-1">Tu historia ya llegó.</h3>
-          <p>En 2 a 3 días, Alejandro te escribe para confirmar los detalles y cómo pagar. No se hace nada hasta que confirmes. Después, la mayoría de las canciones están listas en 2 a 5 días.</p>
+          <div class="pay" hidden>
+            <p><span data-launch-only hidden>Asegura tu precio de lanzamiento ahora. </span>Si no podemos hacer tu canción, te devolvemos todo tu dinero.</p>
+            <a class="btn btn-gold pay-btn" href="#" target="_blank" rel="noopener">Pagar <span class="pay-amt"></span></a>
+          </div>
+          <p class="no-pay">Te llega un correo con cómo pagar.</p>
+          <p>En 2 a 3 días revisamos tu historia. Si algo no queda claro, te escribimos o te mandamos un mensaje con una pregunta rápida. Cuando todo esté listo, tu canción normalmente está lista en 2 a 5 días.</p>
           <p class="welcome-note" hidden>Te acabamos de mandar un correo de bienvenida con los siguientes pasos. Si no lo ves, revisa tu carpeta de spam.</p>
           <button id="w-next" class="btn btn-gold" type="button" hidden>Empezar la siguiente canción</button>
         </div>
