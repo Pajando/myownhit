@@ -359,3 +359,8 @@ input[type=text],input[type=email],input[type=tel],input[type=date],select,texta
 .launch-note{box-shadow:0 0 24px rgba(255,201,77,.35)}
 .btn-gold{box-shadow:0 0 22px rgba(255,201,77,.28)}
 .btn-gold:hover{background:#ffd76e}
+
+/* style picker: group headings inside the chip list */
+.chips .chip-group{flex-basis:100%;margin:.7rem 0 .1rem;font-size:.85rem;font-weight:600;color:var(--muted)}
+.chips .chip-group:first-of-type{margin-top:.2rem}
+.field.car textarea{min-height:6rem}

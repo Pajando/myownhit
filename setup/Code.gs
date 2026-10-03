@@ -51,11 +51,12 @@ function doPost(e) {
 var ORDER_FIELDS = [
   ["your_name", "Customer"], ["email", "Email"], ["phone", "Phone"],
   ["songs", "Songs ordered"], ["song_number", "This is song"], ["about", "About (me / someone)"],
-  ["recipient_name", "Song for"], ["relationship", "Relationship"], ["occasion", "Occasion"],
-  ["needed_by", "Needed by"], ["language", "Language"], ["style", "Style"], ["mood", "Mood"],
-  ["voice", "Voice"], ["reference", "Sounds like"], ["story", "Story"], ["moments", "Must-have moments"],
-  ["words_to_include", "Words to include"], ["pronunciation", "How to say the names"], ["avoid", "Keep out"], ["lyrics", "Cursing OK?"], ["title_idea", "Title idea"], ["send_examples", "Wants demos first"],
-  ["heard_from", "Found us through"], ["site_language", "Site language"]
+  ["recipient_name", "Song is about"], ["pronunciation", "How the name sounds"], ["relationship", "Relationship"],
+  ["occasion", "Occasion"], ["needed_by", "Needed by"],
+  ["story", "Story"], ["arc", "How the story moves"], ["message", "Message + sayings"], ["feeling", "Feeling"],
+  ["style", "Style"], ["style_other", "Other style"], ["language", "Language"], ["voice", "Voice"],
+  ["favorites", "Favorite artists / songs + anything else"], ["lyrics", "Cursing OK?"], ["car", "Lowrider"],
+  ["send_examples", "Wants demos first"], ["heard_from", "Found us through"], ["site_language", "Site language"]
 ];
 
 function notifyOwner_(d, lang) {
@@ -74,11 +75,11 @@ function sendWelcome_(d, lang) {
   var who = esc_(d.recipient_name || "");
   var extras = [];
   if (d.send_examples) extras.push(t.example);
-  if (d.needed_by) extras.push(t.date.replace("{date}", esc_(d.needed_by)));
+  if (d.needed_by) extras.push(t.date.replace("{date}", esc_(niceDate_(d.needed_by, lang))));
   var tr = function (v) { return lang === "es" ? String(v || "").split(", ").map(function (x) { return ES_VALUES[x] || x; }).join(", ") : v; };
   var recap = [
     [t.r_for, d.about === "me" ? "" : who], [t.r_occ, esc_(d.occasion)], [t.r_lang, esc_(tr(d.language))],
-    [t.r_style, esc_(tr(d.style) || t.youPick)], [t.r_mood, esc_(tr(d.mood))]
+    [t.r_style, esc_(tr(d.style) || t.youPick)], [t.r_mood, esc_(tr(d.feeling))]
   ].filter(function (r) { return r[1]; })
    .map(function (r) { return '<tr><td style="padding:4px 16px 4px 0;color:#6b6790">' + r[0] + '</td><td style="padding:4px 0">' + r[1] + "</td></tr>"; }).join("");
 
@@ -125,23 +126,15 @@ var QUESTIONS = {
       "Easier to talk than type? Record a voice memo telling the story and attach it to your reply.\n\n" +
       "----------",
     list: [
-      "Who is the song about? You, or someone else? (If someone else: their name and who they are to you)",
-      "How do you say the names? Spell them the way they sound.",
-      "What's the occasion? (Your life story, something you overcame, family, birthday, wedding, anniversary, tribute...)",
-      "The story: where you (or they) come from, what you've been through, who matters most.",
-      "Moments that HAVE to be in the song:",
-      "Nicknames or things you (or they) always say:",
-      "Anything to keep out of the song?",
-      "Language: English, Spanish, or both?",
-      "Style: corrido, oldies, R&B, country, banda, cumbia, hip-hop, rock... or \"you pick\"",
-      "Mood: happy, romantic, emotional, funny, or epic?",
+      "Who's the song about? Spell the names the right way, and how they sound.",
+      "Your story: where you're from, what you've been through, and real details like people, places, years, your car, your street. Should it start with the struggle and end with the comeback, stay real and heavy, or is it still being written?",
+      "The message: what's the overall message of your song? Any sayings you live by? And what feeling should it leave people with? (Proud, emotional, healing, nostalgic, romantic, hype...)",
+      "Style: pick one, or name any style you love.\n   Oldies & soul: lowrider oldies, soul, R&B, funk, doo-wop, Motown\n   Hip-hop: hip-hop, rap, trap, boom bap\n   Latin: corrido, corrido tumbado, norteño, banda, mariachi, ranchera, cumbia, bachata, salsa, reggaeton, bolero, balada\n   Rock & more: rock, classic rock, indie, alternative, punk, metal\n   Country & folk: country, folk, bluegrass\n   Pop & dance: pop, dance, electronic\n   Smooth & classic: jazz, blues, gospel, classical, acoustic\n   Something else? Just tell me.\n   And should it be in English, Spanish, or both?",
       "Voice: male, female, duet, or no preference?",
-      "A song or artist it should feel like:",
-      "Is cursing OK in the song? Yes or no. (We need an answer on this one.)",
-      "Song title idea (optional):",
-      "When do you need it?",
-      "How many songs?",
-      "Your name and phone number:"
+      "Who do you love listening to? Name at least 2 or 3 artists, groups, or songs with the sound you want, more if you like. And anything else you'd like in the song.",
+      "Is cursing OK? Yes or no.",
+      "Optional: got a lowrider? Tell me everything about it: year, make, model, its name, the colors, and everything that went into it (paint, chrome, hydraulics, interior, rims, how long it took, who helped you build it).",
+      "Need it by a certain date? And your name and phone number."
     ],
     outro: "----------\n\nWhat happens next: I'll send you a link to pay, then within 2–3 days I'll go over your answers. If anything needs clarifying, I'll text or email you a quick question. After that, your song (3–4 minutes) is usually ready in 2–5 days.\n\nAlejandro\nMy Own Hit"
   },
@@ -153,23 +146,15 @@ var QUESTIONS = {
       "¿Es más fácil hablar que escribir? Graba una nota de voz contando la historia y mándala en tu respuesta.\n\n" +
       "----------",
     list: [
-      "¿De quién es la canción? ¿Tuya o de alguien más? (Si es de alguien más: su nombre y qué es de ti)",
-      "¿Cómo se pronuncian los nombres? Escríbelos como suenan.",
-      "¿Cuál es la ocasión? (La historia de tu vida, algo que superaste, la familia, cumpleaños, boda, aniversario, homenaje...)",
-      "La historia: de dónde vienes (o viene), lo que has vivido, quién importa más.",
-      "Momentos que TIENEN que estar en la canción:",
-      "Apodos o cosas que siempre dices (o dice):",
-      "¿Algo que no deba ir en la canción?",
-      "Idioma: ¿español, inglés o los dos?",
-      "Estilo: corrido, oldies, R&B, country, banda, cumbia, hip-hop, rock... o \"tú decide\"",
-      "Ambiente: ¿alegre, romántico, emotivo, chistoso o épico?",
+      "¿De quién es la canción? Escribe bien los nombres y cómo suenan.",
+      "Tu historia: de dónde eres, lo que has vivido y detalles reales como personas, lugares, años, tu carro, tu calle. ¿Empieza con la lucha y termina con el triunfo, se queda real y pesada, o todavía se está escribiendo?",
+      "El mensaje: ¿cuál es el mensaje de tu canción? ¿Algún dicho con el que vives? ¿Y qué sentimiento quieres que deje? (Orgullo, emoción, sanación, nostalgia, romance, ánimo...)",
+      "Estilo: escoge uno, o dime cualquier estilo que te guste.\n   Oldies y soul: oldies lowrider, soul, R&B, funk, doo-wop, Motown\n   Hip-hop: hip-hop, rap, trap, boom bap\n   Latino: corrido, corrido tumbado, norteño, banda, mariachi, ranchera, cumbia, bachata, salsa, reguetón, bolero, balada\n   Rock y más: rock, rock clásico, indie, alternativo, punk, metal\n   Country y folk: country, folk, bluegrass\n   Pop y dance: pop, dance, electrónica\n   Suave y clásico: jazz, blues, gospel, clásica, acústico\n   ¿Otro? Nomás dime.\n   ¿Y la quieres en español, inglés o los dos?",
       "Voz: ¿hombre, mujer, dueto o te da igual?",
-      "Una canción o artista que se parezca:",
-      "¿Está bien que la canción tenga groserías? Sí o no. (Esta sí necesitamos que la contestes.)",
-      "Idea para el título (opcional):",
-      "¿Para cuándo la necesitas?",
-      "¿Cuántas canciones?",
-      "Tu nombre y número de teléfono:"
+      "¿A quién te encanta escuchar? Dime por lo menos 2 o 3 artistas, grupos o canciones con el sonido que quieres, o más si quieres. Y cualquier otra cosa que quieras en la canción.",
+      "¿Está bien que tenga groserías? Sí o no.",
+      "Opcional: ¿tienes un lowrider? Cuéntame todo: año, marca, modelo, su nombre, los colores y todo lo que le metiste (pintura, cromo, hidráulicos, interior, rines, cuánto tiempo te tomó, quién te ayudó a armarlo).",
+      "¿La necesitas para una fecha? Y tu nombre y número de teléfono."
     ],
     outro: "----------\n\nLo que sigue: te mando un link para pagar, y en 2 a 3 días reviso tus respuestas. Si algo necesita aclararse, te escribo o te mando un mensaje con una pregunta rápida. Después, tu canción (de 3 a 4 minutos) normalmente está lista en 2 a 5 días.\n\nAlejandro\nMi Propio Hit"
   }
@@ -187,7 +172,7 @@ var WELCOME = {
     step3: "It comes to this inbox as an MP3. It's yours to keep, play, and share.",
     example: "You asked to hear demos first, so I'll send some in your style when I confirm the details.",
     date: "You need it by {date}. Got it. If that's tight, I'll tell you straight in my reply.",
-    r_for: "Song for", r_occ: "Occasion", r_lang: "Language", r_style: "Style", r_mood: "Mood", youPick: "You pick",
+    r_for: "Song for", r_occ: "Occasion", r_lang: "Language", r_style: "Style", r_mood: "Feeling", youPick: "You pick",
     reply: "Remembered something else? Just reply to this email and add it. The more real detail, the better the song.",
     sign: "Talk soon,"
   },
@@ -202,7 +187,7 @@ var WELCOME = {
     step3: "Te llega a este correo en MP3. Es tuya para guardarla, ponerla y compartirla.",
     example: "Pediste escuchar demos primero, así que te mando algunos en tu estilo cuando confirme los detalles.",
     date: "La necesitas para el {date}. Anotado. Si está muy justo, te lo digo claro en mi respuesta.",
-    r_for: "Canción para", r_occ: "Ocasión", r_lang: "Idioma", r_style: "Estilo", r_mood: "Ambiente", youPick: "Tú decide",
+    r_for: "Canción para", r_occ: "Ocasión", r_lang: "Idioma", r_style: "Estilo", r_mood: "Sentimiento", youPick: "Tú decide",
     reply: "¿Te acordaste de algo más? Solo responde a este correo y agrégalo. Entre más detalles reales, mejor sale la canción.",
     sign: "Hablamos pronto,"
   }
@@ -211,8 +196,10 @@ var WELCOME = {
 // The form sends some answers in English; show them in Spanish in the Spanish email.
 var ES_VALUES = {
   "English": "Inglés", "Spanish": "Español", "Both": "Los dos", "You pick": "Tú decide",
-  "Happy": "Alegre", "Romantic": "Romántico", "Emotional": "Emotivo", "Funny": "Chistoso", "Epic": "Épico",
-  "Lowrider oldies": "Oldies lowrider"
+  "Proud": "Orgullo", "Emotional": "Emoción", "Healing": "Sanación", "Nostalgic": "Nostalgia", "Romantic": "Romance",
+  "Hype": "Ánimo", "Poetic": "Poesía", "Fun": "Diversión",
+  "Lowrider oldies": "Oldies lowrider", "Classic rock": "Rock clásico", "Alternative": "Alternativo",
+  "Electronic": "Electrónica", "Classical": "Clásica", "Acoustic": "Acústico", "Reggaeton": "Reguetón"
 };
 
 // ---------- helpers
@@ -227,11 +214,27 @@ function markLeadFinished_(email) {
 function logRow_(tab, headers, row) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   var sh = ss.getSheetByName(tab) || ss.insertSheet(tab);
-  if (sh.getLastRow() === 0) { sh.appendRow(headers); sh.setFrozenRows(1); sh.getRange(1, 1, 1, headers.length).setFontWeight("bold"); }
+  var fresh = sh.getLastRow() === 0;
+  if (fresh) sh.appendRow(headers);
+  else {
+    // questions changed since the tab was made: rewrite the header row so columns line up
+    var cur = sh.getRange(1, 1, 1, headers.length).getValues()[0];
+    if (cur.join("|") !== headers.join("|")) sh.getRange(1, 1, 1, headers.length).setValues([headers]);
+  }
+  sh.setFrozenRows(1); sh.getRange(1, 1, 1, headers.length).setFontWeight("bold");
   sh.appendRow(row);
 }
 function reply_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }
 function isEmail_(s) { return typeof s === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s); }
+// "2026-10-20" -> "October 20, 2026" / "20 de octubre de 2026"
+function niceDate_(iso, lang) {
+  var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ""));
+  if (!m) return iso;
+  var en = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  var es = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  var d = Number(m[3]), mo = Number(m[2]) - 1;
+  return lang === "es" ? d + " de " + es[mo] + " de " + m[1] : en[mo] + " " + d + ", " + m[1];
+}
 function first_(s) { return String(s || "").trim().split(/\s+/)[0]; }
 function esc_(s) { return String(s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 function stripHtml_(h) { return h.replace(/<li>/g, "\n- ").replace(/<\/td><td[^>]*>/g, ": ").replace(/<\/p>|<br>|<\/tr>|<\/ol>|<\/table>/g, "\n").replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&amp;/g, "&").replace(/\n{3,}/g, "\n\n").trim(); }
@@ -239,7 +242,7 @@ function stripHtml_(h) { return h.replace(/<li>/g, "\n- ").replace(/<\/td><td[^>
 // Run this once from the editor to test: it sends both emails to you, not a customer.
 function testWelcome() {
   var fake = { your_name: "Alejandro Test", email: OWNER, recipient_name: "Rosa", occasion: "Birthday",
-               language: "Spanish", style: "Cumbia", mood: "Happy", needed_by: "2026-10-20", send_examples: "Yes", site_language: "en" };
+               language: "Spanish", style: "Cumbia", feeling: "Proud, Nostalgic", needed_by: "2026-10-20", send_examples: "Yes", site_language: "en" };
   sendWelcome_(fake, "en");
   sendWelcome_(fake, "es");
 }

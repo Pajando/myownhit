@@ -66,13 +66,13 @@
 
           <div class="wstep">
             <p class="stepname">Paso 1 de 5</p>
-            <h3><span data-me="Empecemos contigo" data-them="¿Para quién es?">Empecemos contigo</span></h3>
+            <h3><span data-me="Empecemos contigo" data-them="¿De quién es?">Empecemos contigo</span></h3>
             <fieldset class="chips about" data-q="¿De quién es la canción?">
               <legend class="lbl">¿De quién es la canción?</legend>
               <label><input type="radio" name="about" value="me" checked><span>Mía</span></label>
               <label><input type="radio" name="about" value="someone"><span>De alguien que quiero</span></label>
             </fieldset>
-            <fieldset class="field chips" id="f-songs" data-q="Canciones">
+            <fieldset class="field chips" id="f-songs" data-q="Cuántas canciones">
               <legend class="lbl">¿Cuántas canciones?</legend>
               <label><input type="radio" name="songs" value="1" checked><span>1 canción</span></label>
               <label><input type="radio" name="songs" value="2"><span>2 canciones</span></label>
@@ -80,11 +80,12 @@
             </fieldset>
             <p class="help songs-help">¿Más de 3? <a href="precios.html#more">Escríbenos</a>.</p>
             <div class="two">
-              <div class="field"><label for="f-recipient"><span data-me="Tu nombre, como debe sonar en la canción" data-them="Su nombre">Tu nombre, como debe sonar en la canción</span></label><input id="f-recipient" name="recipient_name" type="text" required data-q="Canción para" maxlength="60"></div>
-              <div class="field" data-them-only><label for="f-rel">¿Qué es de ti?</label><input id="f-rel" name="relationship" type="text" placeholder="Mi mamá, mi esposa, mi mejor amigo" data-q="Relación"></div>
+              <div class="field"><label for="f-recipient"><span data-me="Tu nombre, bien escrito" data-them="Su nombre, bien escrito">Tu nombre, bien escrito</span></label><input id="f-recipient" name="recipient_name" type="text" required data-q="Canción de" maxlength="60"></div>
+              <div class="field"><label for="f-say">¿Y cómo suena?<span class="help">Escríbelo como suena, para que el cantante lo diga bien.</span></label><input id="f-say" name="pronunciation" type="text" data-q="Cómo suena el nombre" placeholder="Brandon = BRAN-don"></div>
             </div>
-            <fieldset class="field chips" id="f-occasion" data-required data-q="Ocasión">
-              <legend class="lbl">¿Para qué es?</legend>
+            <div class="field" data-them-only><label for="f-rel">¿Qué es de ti?</label><input id="f-rel" name="relationship" type="text" placeholder="Mi mamá, mi esposa, mi mejor amigo" data-q="Relación"></div>
+            <fieldset class="field chips" id="f-occasion" data-q="Ocasión">
+              <legend class="lbl">¿Para qué es?<span class="help">Opcional</span></legend>
               <label data-me-only><input type="radio" name="occasion" value="La historia de mi vida"><span>La historia de mi vida</span></label>
               <label data-me-only><input type="radio" name="occasion" value="Algo que superé"><span>Algo que superé</span></label>
               <label data-me-only><input type="radio" name="occasion" value="Mi familia y mis raíces"><span>Mi familia y mis raíces</span></label>
@@ -101,72 +102,113 @@
               <label><input type="radio" name="occasion" value="Para mi negocio"><span>Para mi negocio</span></label>
               <label><input type="radio" name="occasion" value="Otra cosa"><span>Otra cosa</span></label>
             </fieldset>
-            <div class="field"><label for="f-date">¿Para cuándo la necesitas?<span class="help">Déjalo en blanco si no hay prisa.</span></label><input id="f-date" name="needed_by" type="date" data-q="Para cuándo"></div>
+            <div class="field"><label for="f-date">¿La necesitas para una fecha?<span class="help">Déjalo en blanco si no hay prisa.</span></label><input id="f-date" name="needed_by" type="date" data-q="Para cuándo"></div>
           </div>
 
           <div class="wstep" hidden>
             <p class="stepname">Paso 2 de 5</p>
-            <h3><span data-me="Cuéntanos tu historia" data-them="Cuéntanos de esa persona">Cuéntanos tu historia</span></h3>
-            <div class="field"><label for="f-story"><span data-me="De dónde vienes, lo que has vivido, con quién andas" data-them="¿Quién es y cuál es su historia juntos?">De dónde vienes, lo que has vivido, con quién andas</span><span class="help"><span data-me="Entre más detalles reales, más va a sonar a que solo puede ser tuya." data-them="Entre más detalles reales, más va a sonar a que solo puede ser sobre esa persona.">Entre más detalles reales, más va a sonar a que solo puede ser tuya.</span></span></label>
-              <textarea id="f-story" name="story" required data-q="Su historia" placeholder="El barrio, los años difíciles, cómo saliste adelante, la gente que estuvo ahí" data-me-ph="El barrio, los años difíciles, cómo saliste adelante, la gente que estuvo ahí" data-them-ph="Cómo se conocieron, cómo es, lo que significa para ti"></textarea></div>
-            <div class="field"><label for="f-moments">Momentos que tienen que estar en la canción</label>
-              <textarea id="f-moments" name="moments" data-q="Momentos clave" placeholder="El primer carro, el día que te fuiste de la casa, el día que nació tu hijo" data-me-ph="El primer carro, el día que te fuiste de la casa, el día que nació tu hijo" data-them-ph="El viaje en carretera, el primer departamento, el día que nació el bebé"></textarea></div>
-            <div class="field"><label for="f-words"><span data-me="Nombres, apodos o cosas que siempre dices" data-them="Nombres, apodos o cosas que siempre dice">Nombres, apodos o cosas que siempre dices</span></label>
-              <input id="f-words" name="words_to_include" type="text" data-q="Palabras a incluir" placeholder="&quot;Mija,&quot; el nombre del perro, &quot;ya merito&quot;"></div>
-            <div class="field"><label for="f-say">¿Cómo se pronuncian los nombres?<span class="help">Opcional. Escríbelos como suenan, para que el cantante los diga bien.</span></label>
-              <input id="f-say" name="pronunciation" type="text" data-q="Cómo se dicen los nombres" placeholder="Brandon = BRAN-don"></div>
-            <div class="field"><label for="f-avoid">¿Algo que no deba ir?</label>
-              <input id="f-avoid" name="avoid" type="text" data-q="No incluir" placeholder="Temas, nombres o palabras que evitar"></div>
+            <h3><span data-me="Cuéntanos tu historia" data-them="Cuéntanos su historia">Cuéntanos tu historia</span></h3>
+            <div class="field"><label for="f-story"><span data-me="Tu historia: de dónde eres, lo que has vivido" data-them="Su historia: de dónde es, lo que ha vivido">Tu historia: de dónde eres, lo que has vivido</span><span class="help">Los detalles reales la hacen tuya: personas, lugares, años, tu carro, tu calle.</span></label>
+              <textarea id="f-story" name="story" required data-q="Historia" placeholder="El barrio, los años difíciles, cómo saliste adelante, la gente que estuvo ahí" data-me-ph="El barrio, los años difíciles, cómo saliste adelante, la gente que estuvo ahí" data-them-ph="Cómo se conocieron, lo que ha vivido, lo que significa para ti"></textarea></div>
+            <fieldset class="field chips" id="f-arc" data-q="Cómo va la historia">
+              <legend class="lbl">¿Cómo va la historia?</legend>
+              <label><input type="radio" name="arc" value="Struggle to comeback"><span>Empieza con la lucha y termina con el triunfo</span></label>
+              <label><input type="radio" name="arc" value="Real and heavy"><span>Real y pesada, como fue</span></label>
+              <label><input type="radio" name="arc" value="Still being written"><span>Todavía se está escribiendo</span></label>
+              <label><input type="radio" name="arc" value="Good times"><span>Puros buenos tiempos</span></label>
+            </fieldset>
+            <div class="field"><label for="f-message">El mensaje: ¿qué quieres que la gente se lleve?<span class="help">Aquí van también los dichos con los que vives.</span></label>
+              <textarea id="f-message" name="message" required data-q="Mensaje" placeholder="Nunca te rindas. La familia primero. &quot;Low and slow, nunca rápido.&quot;"></textarea></div>
+            <fieldset class="field chips" id="f-feeling" data-q="Sentimiento">
+              <legend class="lbl">¿Qué sentimiento quieres que deje?</legend>
+              <label><input type="checkbox" name="feeling" value="Proud"><span>Orgullo</span></label>
+              <label><input type="checkbox" name="feeling" value="Emotional"><span>Emoción</span></label>
+              <label><input type="checkbox" name="feeling" value="Healing"><span>Sanación</span></label>
+              <label><input type="checkbox" name="feeling" value="Nostalgic"><span>Nostalgia</span></label>
+              <label><input type="checkbox" name="feeling" value="Romantic"><span>Romance</span></label>
+              <label><input type="checkbox" name="feeling" value="Hype"><span>Ánimo</span></label>
+              <label><input type="checkbox" name="feeling" value="Poetic"><span>Poesía</span></label>
+              <label><input type="checkbox" name="feeling" value="Fun"><span>Diversión</span></label>
+            </fieldset>
           </div>
 
           <div class="wstep" hidden>
             <p class="stepname">Paso 3 de 5</p>
             <h3>¿Cómo debe sonar?</h3>
-            <fieldset class="field chips" data-required data-q="Idioma">
+            <fieldset class="field chips styles" id="f-style" data-q="Estilo">
+              <legend class="lbl">Estilo<span class="help">Elige los que quieras. ¿No sabes? Escoge "Tú decide."</span></legend>
+              <p class="chip-group">Oldies y soul</p>
+              <label><input type="checkbox" name="style" value="Lowrider oldies"><span>Oldies lowrider</span></label>
+              <label><input type="checkbox" name="style" value="Soul"><span>Soul</span></label>
+              <label><input type="checkbox" name="style" value="R&amp;B"><span>R&amp;B</span></label>
+              <label><input type="checkbox" name="style" value="Funk"><span>Funk</span></label>
+              <label><input type="checkbox" name="style" value="Doo-wop"><span>Doo-wop</span></label>
+              <label><input type="checkbox" name="style" value="Motown"><span>Motown</span></label>
+              <p class="chip-group">Hip-hop</p>
+              <label><input type="checkbox" name="style" value="Hip-hop"><span>Hip-hop</span></label>
+              <label><input type="checkbox" name="style" value="Rap"><span>Rap</span></label>
+              <label><input type="checkbox" name="style" value="Trap"><span>Trap</span></label>
+              <label><input type="checkbox" name="style" value="Boom bap"><span>Boom bap</span></label>
+              <p class="chip-group">Latino</p>
+              <label><input type="checkbox" name="style" value="Corrido"><span>Corrido</span></label>
+              <label><input type="checkbox" name="style" value="Corrido tumbado"><span>Corrido tumbado</span></label>
+              <label><input type="checkbox" name="style" value="Norteño"><span>Norteño</span></label>
+              <label><input type="checkbox" name="style" value="Banda"><span>Banda</span></label>
+              <label><input type="checkbox" name="style" value="Mariachi"><span>Mariachi</span></label>
+              <label><input type="checkbox" name="style" value="Ranchera"><span>Ranchera</span></label>
+              <label><input type="checkbox" name="style" value="Cumbia"><span>Cumbia</span></label>
+              <label><input type="checkbox" name="style" value="Bachata"><span>Bachata</span></label>
+              <label><input type="checkbox" name="style" value="Salsa"><span>Salsa</span></label>
+              <label><input type="checkbox" name="style" value="Reggaeton"><span>Reguetón</span></label>
+              <label><input type="checkbox" name="style" value="Bolero"><span>Bolero</span></label>
+              <label><input type="checkbox" name="style" value="Balada"><span>Balada</span></label>
+              <p class="chip-group">Rock y más</p>
+              <label><input type="checkbox" name="style" value="Rock"><span>Rock</span></label>
+              <label><input type="checkbox" name="style" value="Classic rock"><span>Rock clásico</span></label>
+              <label><input type="checkbox" name="style" value="Indie"><span>Indie</span></label>
+              <label><input type="checkbox" name="style" value="Alternative"><span>Alternativo</span></label>
+              <label><input type="checkbox" name="style" value="Punk"><span>Punk</span></label>
+              <label><input type="checkbox" name="style" value="Metal"><span>Metal</span></label>
+              <p class="chip-group">Country y folk</p>
+              <label><input type="checkbox" name="style" value="Country"><span>Country</span></label>
+              <label><input type="checkbox" name="style" value="Folk"><span>Folk</span></label>
+              <label><input type="checkbox" name="style" value="Bluegrass"><span>Bluegrass</span></label>
+              <p class="chip-group">Pop y dance</p>
+              <label><input type="checkbox" name="style" value="Pop"><span>Pop</span></label>
+              <label><input type="checkbox" name="style" value="Dance"><span>Dance</span></label>
+              <label><input type="checkbox" name="style" value="Electronic"><span>Electrónica</span></label>
+              <p class="chip-group">Suave y clásico</p>
+              <label><input type="checkbox" name="style" value="Jazz"><span>Jazz</span></label>
+              <label><input type="checkbox" name="style" value="Blues"><span>Blues</span></label>
+              <label><input type="checkbox" name="style" value="Gospel"><span>Gospel</span></label>
+              <label><input type="checkbox" name="style" value="Classical"><span>Clásica</span></label>
+              <label><input type="checkbox" name="style" value="Acoustic"><span>Acústico</span></label>
+              <p class="chip-group">¿No sabes?</p>
+              <label><input type="checkbox" name="style" value="You pick"><span>Tú decide</span></label>
+            </fieldset>
+            <div class="field style-other"><label for="f-style-other">¿Otro estilo?<span class="help">Opcional. Escribe cualquier estilo que no esté en la lista.</span></label><input id="f-style-other" name="style_other" type="text" data-q="Otro estilo"></div>
+            <fieldset class="field chips" id="f-language" data-required data-q="Idioma">
               <legend class="lbl">Idioma</legend>
               <label><input type="radio" name="language" value="English"><span>Inglés</span></label>
               <label><input type="radio" name="language" value="Spanish"><span>Español</span></label>
               <label><input type="radio" name="language" value="Both"><span>Los dos</span></label>
             </fieldset>
-            <fieldset class="field chips" data-q="Estilo">
-              <legend class="lbl">Estilo<span class="help">Elige los que quieras. ¿No sabes? Escoge "Tú decide."</span></legend>
-              <label><input type="checkbox" name="style" value="Lowrider oldies"><span>Oldies lowrider</span></label>
-              <label><input type="checkbox" name="style" value="Corrido"><span>Corrido</span></label>
-              <label><input type="checkbox" name="style" value="Ranchera"><span>Ranchera</span></label>
-              <label><input type="checkbox" name="style" value="Banda"><span>Banda</span></label>
-              <label><input type="checkbox" name="style" value="Cumbia"><span>Cumbia</span></label>
-              <label><input type="checkbox" name="style" value="Balada"><span>Balada</span></label>
-              <label><input type="checkbox" name="style" value="Pop"><span>Pop</span></label>
-              <label><input type="checkbox" name="style" value="R&B"><span>R&amp;B</span></label>
-              <label><input type="checkbox" name="style" value="Country"><span>Country</span></label>
-              <label><input type="checkbox" name="style" value="Hip-hop"><span>Hip-hop</span></label>
-              <label><input type="checkbox" name="style" value="Rock"><span>Rock</span></label>
-              <label><input type="checkbox" name="style" value="You pick"><span>Tú decide</span></label>
-            </fieldset>
-            <fieldset class="field chips" data-q="Ambiente">
-              <legend class="lbl">Ambiente</legend>
-              <label><input type="checkbox" name="mood" value="Happy"><span>Alegre</span></label>
-              <label><input type="checkbox" name="mood" value="Romantic"><span>Romántico</span></label>
-              <label><input type="checkbox" name="mood" value="Emotional"><span>Emotivo</span></label>
-              <label><input type="checkbox" name="mood" value="Funny"><span>Chistoso</span></label>
-              <label><input type="checkbox" name="mood" value="Epic"><span>Épico</span></label>
-            </fieldset>
-            <fieldset class="field chips" data-q="Voz">
+            <fieldset class="field chips" id="f-voice" data-q="Voz">
               <legend class="lbl">Voz</legend>
               <label><input type="radio" name="voice" value="Male"><span>Hombre</span></label>
               <label><input type="radio" name="voice" value="Female"><span>Mujer</span></label>
               <label><input type="radio" name="voice" value="Duet"><span>Dueto</span></label>
               <label><input type="radio" name="voice" value="No preference"><span>Me da igual</span></label>
             </fieldset>
-            <fieldset class="field chips" data-required data-q="Groserías">
+            <div class="field"><label for="f-fav">¿A quién te encanta escuchar?<span class="help">Dime por lo menos 2 o 3 artistas, grupos o canciones con el sonido que quieres. Más, mejor. Y cualquier otra cosa que quieras en la canción.</span></label>
+              <textarea id="f-fav" name="favorites" required data-q="Artistas favoritos" placeholder="War, Malo, The Delfonics. Y un saludo a mi car club."></textarea></div>
+            <fieldset class="field chips" id="f-lyrics" data-required data-q="Groserías">
               <legend class="lbl">¿Está bien que la canción tenga groserías?</legend>
               <label><input type="radio" name="lyrics" value="Clean"><span>No, sin groserías</span></label>
               <label><input type="radio" name="lyrics" value="Explicit OK"><span>Sí, está bien</span></label>
             </fieldset>
-            <div class="field"><label for="f-ref">Una canción o artista que se parezca<span class="help">Opcional. Nos ayuda a pegarle al sonido.</span></label>
-              <input id="f-ref" name="reference" type="text" data-q="Se parece a" placeholder="Vicente Fernández, Ed Sheeran, Grupo Frontera"></div>
-            <div class="field"><label for="f-title">Idea para el título<span class="help">Opcional. ¿No sabes? Déjalo en nuestras manos.</span></label>
-              <input id="f-title" name="title_idea" type="text" data-q="Idea de título"></div>
+            <div class="field car"><label for="f-car">¿Tienes un lowrider? Cuéntanos todo<span class="help">Opcional. Año, marca, modelo, su nombre, los colores y todo lo que le metiste: pintura, cromo, hidráulicos, interior, rines, cuánto tiempo te tomó, quién te ayudó a armarlo.</span></label>
+              <textarea id="f-car" name="car" data-q="Lowrider" placeholder="Impala 1964, &quot;La Reina&quot;, rojo candy, hoja de oro, 3 bombas, lo armé con mi papá en 6 años"></textarea></div>
           </div>
 
           <div class="wstep" hidden>
