@@ -6,13 +6,23 @@
   3. Entries with file: null show as "coming soon" and can't be played.
 
   title / note have an English and a Spanish version (en / es).
-  style: ONE of these, spelled exactly like this (it powers the style buttons):
-    Lowrider oldies, Corrido, Ranchera, Banda, Cumbia, Balada, Pop, R&B, Country, Hip-hop, Rock
+  style: one of these, or a list for a mix, e.g.  style: ["Hip-hop", "Salsa"]
+  Spell them exactly like this (they power the style buttons):
+    Lowrider oldies, Soul, R&B, Funk, Doo-wop, Motown, Hip-hop, Rap, Trap, Boom bap, Corrido, Corrido tumbado,
+    Norteño, Banda, Mariachi, Ranchera, Cumbia, Bachata, Salsa, Reggaeton, Bolero, Balada, Rock, Classic rock,
+    Indie, Alternative, Punk, Metal, Country, Folk, Bluegrass, Pop, Dance, Electronic, Jazz, Blues, Gospel, Classical, Acoustic
   A style button only shows once at least one demo in that style has a file.
   Only post a demo you have the right to share: either made for this site,
   or a customer's song they said yes to in writing.
 */
 window.DEMOS = [
+  {
+    file: "demos/hiphop-salsa-clip.m4a",
+    style: ["Hip-hop", "Salsa"],
+    title: { en: "The AO Story", es: "The AO Story" },
+    note:  { en: "My story, hip-hop & salsa, English & Spanish", es: "Mi historia, hip-hop y salsa, en inglés y español" },
+    label: "The AO Story"
+  },
   {
     file: null,
     style: "Lowrider oldies",

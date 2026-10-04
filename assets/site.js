@@ -103,6 +103,7 @@
     ? { "Lowrider oldies": "Oldies lowrider", Corrido: "Corridos", Ranchera: "Rancheras", Banda: "Banda", Cumbia: "Cumbia", Balada: "Baladas", Pop: "Pop", "R&B": "R&B", Country: "Country", "Hip-hop": "Hip-hop", Rock: "Rock" }
     : { "Lowrider oldies": "Lowrider oldies", Corrido: "Corridos", Ranchera: "Rancheras", Banda: "Banda", Cumbia: "Cumbia", Balada: "Baladas", Pop: "Pop", "R&B": "R&B", Country: "Country", "Hip-hop": "Hip-hop", Rock: "Rock" };
   const playable = (window.DEMOS || []).filter((d) => d.file);
+  const stylesOf = (d) => [].concat(d.style || []);
   // "Hear demos first" link in the hero: only when there is something to hear
   if (playable.length) $$(".hear-first").forEach((a) => { a.hidden = false; });
   const list = $("#tracks");
@@ -128,12 +129,12 @@
         probe.addEventListener("loadedmetadata", () => { b.querySelector(".d").textContent = fmt(probe.duration); });
       }
       b.addEventListener("click", () => select(i, true));
-      li.dataset.style = d.style || "";
+      li.dataset.style = stylesOf(d).join("|");
       li.appendChild(b); list.appendChild(li);
     });
 
     // style buttons above the list: All + every style that has at least one real demo
-    const styles = [...new Set(playable.map((d) => d.style).filter(Boolean))];
+    const styles = [...new Set(playable.flatMap(stylesOf).filter(Boolean))];
     if (styles.length > 1) {
       const bar = document.createElement("div");
       bar.className = "demo-filter";
@@ -146,7 +147,7 @@
         btn.setAttribute("aria-pressed", String(!st));
         btn.addEventListener("click", () => {
           $$("button", bar).forEach((x) => x.setAttribute("aria-pressed", String(x === btn)));
-          $$("li", list).forEach((li) => { li.hidden = !!st && li.dataset.style !== st; });
+          $$("li", list).forEach((li) => { li.hidden = !!st && !li.dataset.style.split("|").includes(st); });
         });
         bar.appendChild(btn);
       });
@@ -447,12 +448,13 @@
     const btn = $("button", wrap), player = new Audio();
     let shown = null;
     const setLabel = () => {
-      btn.textContent = (player.paused ? "\u25B6 " : "\u275A\u275A ") + (player.paused ? T.hearStyle.replace("{s}", STYLE_NAME[shown.style] || shown.style) : T.pause);
+      const picked = $$("input[name=style]:checked", styleBox).map((i) => i.value).find((v) => stylesOf(shown).includes(v)) || stylesOf(shown)[0];
+      btn.textContent = (player.paused ? "\u25B6 " : "\u275A\u275A ") + (player.paused ? T.hearStyle.replace("{s}", STYLE_NAME[picked] || picked) : T.pause);
     };
     styleBox.after(wrap);
     styleBox.addEventListener("change", (e) => {
       const picked = e.target.checked ? e.target.value : ($$("input[name=style]:checked", styleBox).pop()?.value);
-      const demo = playable.find((d) => d.style === picked);
+      const demo = playable.find((d) => stylesOf(d).includes(picked));
       if (!demo) { wrap.hidden = true; player.pause(); return; }
       if (!shown || shown !== demo) { player.pause(); player.src = demo.file; shown = demo; }
       wrap.hidden = false; setLabel();
