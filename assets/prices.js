@@ -19,5 +19,5 @@ window.PRICES = {
   // The thank-you screen shows a Pay button for the package they picked.
   // Make each link charge TODAY's price (the launch price while the launch is on).
   // Empty = no button; the screen says "You'll get an email with how to pay."
-  payLinks: { one: "https://buy.stripe.com/bJebJ25TwclcbDL8kD9sk02", two: "https://buy.stripe.com/aFa8wQ3Lo9906jrasL9sk03", three: "" }
+  payLinks: { one: "https://buy.stripe.com/bJebJ25TwclcbDL8kD9sk02", two: "https://buy.stripe.com/aFa8wQ3Lo9906jrasL9sk03", three: "https://buy.stripe.com/7sYeVe5Tw5WOePX6cv9sk04" }
 };
