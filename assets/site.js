@@ -360,6 +360,7 @@
       try {
         await send(payload);
         store.del(KEY);
+        store.del("myownhit-lead");
         form.hidden = true;
         $("#w-done").hidden = false;
         if (APPS_SCRIPT_URL) $("#w-done .welcome-note").hidden = false;

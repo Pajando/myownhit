@@ -369,3 +369,10 @@ input[type=text],input[type=email],input[type=tel],input[type=date],select,texta
 .brand{flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:.22rem}
 .brand-tag{font:500 .72rem/1 var(--body);color:var(--muted);letter-spacing:.01em;white-space:nowrap}
 @media (max-width:360px){.brand-tag{font-size:.62rem}}
+
+/* privacy page */
+.legal h2{font:600 1.25rem/1.3 var(--body);margin:2.2rem 0 .6rem}
+.legal ul{margin:0;padding-left:1.2rem}
+.legal li{margin:.45rem 0}
+.legal p,.legal li{color:var(--paper)}
+.legal .updated{color:var(--muted);font-size:.9rem;margin:-1.5rem 0 1rem}
