@@ -1,0 +1,31 @@
+# My Own Hit
+
+> My Own Hit (in Spanish, Mi Propio Hit) makes custom songs about a person's real life: where they came from, what they've been through, their people, their message. Each song is 3–4 minutes, in English, Spanish, or both, in the style the customer picks (lowrider oldies, soul, R&B, hip-hop, corridos, banda, cumbia, salsa, country, rock, pop, and more). Tagline: "Every life deserves a song." Made by Ojeda Works (Napa, California), run by Alejandro Ojeda.
+
+## How it works
+
+- The customer answers a few questions on the site (about five minutes) or by replying to an email, or sends a voice memo.
+- They pay right after sending their story. Full refund if the song can't be made.
+- Within 2–3 days the story is reviewed; if anything needs clarifying, the customer gets a quick text or email.
+- The song is usually ready 2–5 days after that (about 4–8 days total) and is delivered by email as an audio file.
+- Lyrics are written from the customer's details. Music is produced with AI tools, then shaped, checked line by line, and finished by a person.
+
+## Prices (launch pricing, USD)
+
+- 1 song: $49 (regular $78)
+- 2 songs: $89 (regular $139)
+- 3 songs: $129 (regular $197)
+- More than 3 songs: email for a price
+
+## Pages
+
+- [Home](https://myownhit.com/): what it is, demo songs, examples, how it works, FAQ
+- [Start your song](https://myownhit.com/start.html): the questions
+- [Pricing](https://myownhit.com/pricing.html)
+- [Privacy](https://myownhit.com/privacy.html)
+- [Español](https://myownhit.com/es.html), [Empieza tu canción](https://myownhit.com/empezar.html), [Precios](https://myownhit.com/precios.html), [Privacidad](https://myownhit.com/privacidad.html)
+
+## Contact
+
+- alejandro@ojedaworks.com
+- Parent brand: https://ojedaworks.com
