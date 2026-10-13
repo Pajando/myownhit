@@ -38,7 +38,7 @@
   "description":"Personal songs written and produced from the customer's story, in English, Spanish, or both.",
   "areaServed":"US",
   "availableLanguage":["English","Spanish"],
-  "provider":{"@type":"Organization","name":"Ojeda Works","url":"https://ojedaworks.com","email":"alejandro@ojedaworks.com"}
+  "provider":{"@id":"https://myownhit.com/#org"}
 }
 </script>
 <script type="application/ld+json">
@@ -95,6 +95,24 @@
    }
   }
  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "@id":"https://myownhit.com/#org",
+  "name":"My Own Hit",
+  "alternateName":"Mi Propio Hit",
+  "url":"https://myownhit.com/",
+  "slogan":"Every life deserves a song",
+  "email":"alejandro@ojedaworks.com",
+  "parentOrganization":{
+    "@type":"Organization",
+    "@id":"https://ojedaworks.com/#org",
+    "name":"Ojeda Works",
+    "url":"https://ojedaworks.com/"
+  }
 }
 </script>
 </head>
