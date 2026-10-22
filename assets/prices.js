@@ -10,14 +10,14 @@
 */
 window.PRICES = {
   currency: "USD",
-  one: 78,      // 1 song, 3-4 minutes (regular)
-  two: 139,     // 2 songs (regular)
-  three: 197,   // 3 songs (regular)
-  launch: { one: 49, two: 89, three: 129 },
+  one: 47,      // 1 song, 3-4 minutes
+  two: 87,      // 2 songs
+  three: 127,   // 3 songs
+  launch: null, // no launch pricing: 2026-10-20 Alejandro dropped the crossed-out 'regular' prices (never charged)
 
   // STRIPE PAYMENT LINKS: paste each link between the quotes (https://buy.stripe.com/...).
   // The thank-you screen shows a Pay button for the package they picked.
   // Make each link charge TODAY's price (the launch price while the launch is on).
   // Empty = no button; the screen says "You'll get an email with how to pay."
-  payLinks: { one: "https://buy.stripe.com/bJebJ25TwclcbDL8kD9sk02", two: "https://buy.stripe.com/aFa8wQ3Lo9906jrasL9sk03", three: "https://buy.stripe.com/7sYeVe5Tw5WOePX6cv9sk04" }
+  payLinks: { one: "", two: "", three: "" }  // 2026-10-22: cleared until new Stripe links at $47/$87/$127 exist (old links charged $49/$89/$129). Old: { one: "https://buy.stripe.com/bJebJ25TwclcbDL8kD9sk02", two: "https://buy.stripe.com/aFa8wQ3Lo9906jrasL9sk03", three: "https://buy.stripe.com/7sYeVe5Tw5WOePX6cv9sk04" }
 };

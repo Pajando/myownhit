@@ -507,7 +507,7 @@
   });
   if (L) $$("[data-launch-note]").forEach((el) => { el.hidden = false; });
   if (L) $$("[data-launch-only]").forEach((el) => { el.hidden = false; });
-  // today's price only (no crossed-out regular price), for sentences like "songs from $49"
+  // today's price only (no crossed-out regular price), for sentences like "songs from $47"
   $$("[data-price-now]").forEach((el) => {
     const v = now(el.dataset.priceNow);
     if (typeof v === "number") el.textContent = money(v);

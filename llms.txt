@@ -10,11 +10,11 @@
 - The song is usually ready 2–5 days after that (about 4–8 days total) and is delivered by email as an audio file.
 - Lyrics are written from the customer's details. Music is produced with AI tools, then shaped, checked line by line, and finished by a person.
 
-## Prices (launch pricing, USD)
+## Prices (USD)
 
-- 1 song: $49 (regular $78)
-- 2 songs: $89 (regular $139)
-- 3 songs: $129 (regular $197)
+- 1 song: $47
+- 2 songs: $87
+- 3 songs: $127
 - More than 3 songs: email for a price
 
 ## Pages
