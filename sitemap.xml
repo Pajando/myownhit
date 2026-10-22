@@ -62,4 +62,18 @@
     <xhtml:link rel="alternate" hreflang="es" href="https://myownhit.com/sorteo.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://myownhit.com/giveaway.html"/>
   </url>
+  <url>
+    <loc>https://myownhit.com/custom-corrido.html</loc>
+    <lastmod>2026-10-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://myownhit.com/custom-corrido.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://myownhit.com/corrido-personalizado.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://myownhit.com/custom-corrido.html"/>
+  </url>
+  <url>
+    <loc>https://myownhit.com/corrido-personalizado.html</loc>
+    <lastmod>2026-10-22</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://myownhit.com/custom-corrido.html"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://myownhit.com/corrido-personalizado.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://myownhit.com/custom-corrido.html"/>
+  </url>
 </urlset>
