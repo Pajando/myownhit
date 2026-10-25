@@ -45,6 +45,7 @@ body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); fo
 .card ul { margin: 0 0 12px; padding: 0; list-style: none; display: grid; gap: 5px; }
 .card li { font-size: 14px; display: flex; gap: 8px; align-items: baseline; }
 .card li::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--c, var(--accent)); flex: none; transform: translateY(-1px); }
+.card .newtab { font-size: 12.5px; color: var(--muted); margin-left: 8px; }
 .card a.go { display: inline-flex; text-decoration: none; font: 700 15px var(--body); color: var(--cta-ink); background: var(--cta); padding: 10px 16px; border-radius: 12px; }
 .about { pointer-events: auto; position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px)); max-width: min(380px, calc(100% - 32px)); max-height: 55vh; overflow: auto; background: var(--panel); color: var(--ink); border-radius: 14px; padding: 8px 14px; box-shadow: 0 6px 24px rgba(0,0,0,.18); font-size: 14px; line-height: 1.45; }
 .about summary { cursor: pointer; font-weight: 600; }
@@ -59,8 +60,8 @@ body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); fo
 <canvas id="scene" tabindex="0" aria-label="3D recording studio showing how a My Own Hit song gets made. Use the arrow keys or WASD to walk, tap the floor, or press Next stop."></canvas>
 <div class="ui">
   <div class="top">
-    <div class="chip"><h1>The <b>My Own Hit</b> Studio</h1><p>How your song gets made, one stop at a time · <a href="https://myownhit.com/">myownhit.com</a></p></div>
-    <div class="acts"><button type="button" id="next">Next stop</button><a href="https://myownhit.com/start.html">Start my song</a></div>
+    <div class="chip"><h1>The <b>My Own Hit</b> Studio</h1><p>How your song gets made, one stop at a time · <a href="https://myownhit.com/" target="_blank" rel="noopener">myownhit.com</a></p></div>
+    <div class="acts"><button type="button" id="next">Next stop</button><a href="https://myownhit.com/start.html" target="_blank" rel="noopener">Start my song ↗</a></div>
   </div>
   <details class="about" id="about">
     <summary>What is this?</summary>
@@ -71,11 +72,11 @@ body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); fo
       <li><b>English, Spanish, or both</b>: Spanish, English, or both in one song. Written in the language you choose by someone who speaks it, not translated by software.</li>
       <li><b>You, or someone you love</b>: A song about you, or one for someone else: a wedding, a quinceañera, a birthday, a tribute. A song for the whole family works too, and so does one for your business.</li>
       <li><b>How your song is made</b>: Your lyrics are written from what you tell us. The music is produced with modern AI tools, then a real person shapes it, checks every line, and finishes it.</li>
-      <li><b>What it costs</b>: Pay right after you send your story. If we can&#x27;t make your song, you get a full refund. <a href="https://myownhit.com/pricing.html">See pricing →</a></li>
-      <li><b>Hear demos first</b>: Not ready yet? Tap your style on the site and hear songs made the same way yours will be. <a href="https://myownhit.com/#listen">Listen →</a></li>
-      <li><b>Start my song</b>: It takes about five minutes. Not a song you like. A song about you, yours for life. <a href="https://myownhit.com/start.html">Start my song →</a></li>
+      <li><b>What it costs</b>: Pay right after you send your story. If we can&#x27;t make your song, you get a full refund. <a href="https://myownhit.com/pricing.html" target="_blank" rel="noopener">See pricing →</a></li>
+      <li><b>Hear demos first</b>: Not ready yet? Tap your style on the site and hear songs made the same way yours will be. <a href="https://myownhit.com/#listen" target="_blank" rel="noopener">Listen →</a></li>
+      <li><b>Start my song</b>: It takes about five minutes. Not a song you like. A song about you, yours for life. <a href="https://myownhit.com/start.html" target="_blank" rel="noopener">Start my song →</a></li>
     </ol>
-    <p><a href="https://myownhit.com/">Back to myownhit.com</a></p>
+    <p><a href="https://myownhit.com/" target="_blank" rel="noopener">Back to myownhit.com</a></p>
   </details>
   <div class="bottom">
     <div class="hint" id="hint"><kbd>W A S D</kbd> or arrows to walk · tap the floor to walk there · <b>Next stop</b> for the tour</div>
@@ -84,9 +85,9 @@ body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); fo
       <h2 id="cName"></h2>
       <p class="desc" id="cDesc"></p>
       <ul id="cFacts"></ul>
-      <a class="go" id="cLink" href="#">Open</a>
+      <a class="go" id="cLink" href="#" target="_blank" rel="noopener">Open</a> <span class="newtab" id="cNote" hidden>Opens in a new tab</span>
     </div>
-    <div class="fallback" id="fallback" hidden><p>This browser can't show the 3D studio. Everything in it is listed under "What is this?", or go straight to <a href="https://myownhit.com/start.html">Start my song</a>.</p></div>
+    <div class="fallback" id="fallback" hidden><p>This browser can't show the 3D studio. Everything in it is listed under "What is this?", or go straight to <a href="https://myownhit.com/start.html" target="_blank" rel="noopener">Start my song</a>.</p></div>
   </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
