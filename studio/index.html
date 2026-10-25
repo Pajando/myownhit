@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The My Own Hit Studio: walk through how your custom song gets made</title>
+<meta name="description" content="Walk through the My Own Hit studio in 3D: tell your story, pick your style (corridos, oldies, R&B, country and more), English, Spanish or both, from $47.">
+<link rel="canonical" href="https://myownhit.com/studio/">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png">
+<meta property="og:title" content="The My Own Hit Studio">
+<meta property="og:description" content="Walk through the My Own Hit studio in 3D: tell your story, pick your style (corridos, oldies, R&B, country and more), English, Spanish or both, from $47.">
+<meta property="og:url" content="https://myownhit.com/studio/">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Shrikhand&display=swap">
+<style>
+:root { --bg: #16133d; --panel: #fff4e6; --ink: #16133d; --muted: #5d5878; --accent: #e4007c; --cta: #e4007c; --cta-ink: #ffffff; --display: "Shrikhand", "Instrument Sans", system-ui, sans-serif; --body: "Instrument Sans", system-ui, sans-serif; color-scheme: dark; }
+html, body { height: 100%; }
+[hidden] { display: none !important; }
+body { margin: 0; overflow: hidden; background: var(--bg); color: var(--ink); font-family: var(--body); }
+#scene { position: fixed; inset: 0; display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
+.ui { position: fixed; inset: 0; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: calc(14px + env(safe-area-inset-top, 0px)) calc(14px + env(safe-area-inset-bottom, 0px)); }
+.top { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: flex-start; }
+.chip { pointer-events: auto; background: var(--panel); color: var(--ink); border-radius: 14px; padding: 10px 14px; box-shadow: 0 6px 24px rgba(0,0,0,.18); max-width: 100%; }
+.chip h1 { margin: 0; font: 400 22px/1.1 var(--display); }
+.chip h1 b { color: var(--accent); font-weight: inherit; }
+.chip p { margin: 3px 0 0; font-size: 13px; color: var(--muted); }
+.chip a { color: var(--accent); font-weight: 600; }
+.acts { pointer-events: auto; display: flex; flex-wrap: wrap; gap: 8px; }
+.acts button, .acts a { font: 600 14px var(--body); border-radius: 12px; padding: 10px 14px; cursor: pointer; text-decoration: none; border: 0; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+.acts button { background: var(--panel); color: var(--ink); }
+.acts a { background: var(--cta); color: var(--cta-ink); }
+.acts :focus-visible, .card a.go:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.bottom { display: flex; justify-content: center; }
+.hint { background: rgba(10,10,20,.78); color: #fff; border-radius: 999px; padding: 9px 16px; font-size: 13.5px; text-align: center; max-width: 100%; }
+.hint kbd { font: 600 12px var(--body); background: rgba(255,255,255,.18); border-radius: 5px; padding: 1px 6px; }
+.card { pointer-events: auto; width: min(470px, 100%); max-height: 58vh; overflow: auto; background: var(--panel); color: var(--ink); border-radius: 18px; padding: 16px 18px 18px; box-shadow: 0 14px 40px rgba(0,0,0,.3); border-top: 6px solid var(--c, var(--accent)); }
+.card .kick { font: 600 11.5px var(--body); letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin: 0; }
+.card h2 { margin: 4px 0 6px; font: 400 26px/1.08 var(--display); text-wrap: balance; }
+.card p.desc { margin: 0 0 10px; font-size: 15px; line-height: 1.45; }
+.card ul { margin: 0 0 12px; padding: 0; list-style: none; display: grid; gap: 5px; }
+.card li { font-size: 14px; display: flex; gap: 8px; align-items: baseline; }
+.card li::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--c, var(--accent)); flex: none; transform: translateY(-1px); }
+.card a.go { display: inline-flex; text-decoration: none; font: 700 15px var(--body); color: var(--cta-ink); background: var(--cta); padding: 10px 16px; border-radius: 12px; }
+.about { pointer-events: auto; position: fixed; left: max(16px, env(safe-area-inset-left, 0px)); bottom: calc(76px + env(safe-area-inset-bottom, 0px)); max-width: min(380px, calc(100% - 32px)); max-height: 55vh; overflow: auto; background: var(--panel); color: var(--ink); border-radius: 14px; padding: 8px 14px; box-shadow: 0 6px 24px rgba(0,0,0,.18); font-size: 14px; line-height: 1.45; }
+.about summary { cursor: pointer; font-weight: 600; }
+.about ol { padding-left: 20px; margin: 6px 0; }
+.about a { color: var(--accent); font-weight: 600; }
+.fallback { pointer-events: auto; background: var(--panel); color: var(--ink); border-radius: 16px; padding: 16px; max-width: 460px; margin: auto; }
+.fallback a { color: var(--accent); font-weight: 600; }
+@media (max-width: 520px) { .chip h1 { font-size: 19px; } .card h2 { font-size: 22px; } .acts button, .acts a { padding: 8px 11px; font-size: 13px; } }
+</style>
+</head>
+<body>
+<canvas id="scene" tabindex="0" aria-label="3D recording studio showing how a My Own Hit song gets made. Use the arrow keys or WASD to walk, tap the floor, or press Next stop."></canvas>
+<div class="ui">
+  <div class="top">
+    <div class="chip"><h1>The <b>My Own Hit</b> Studio</h1><p>How your song gets made, one stop at a time · <a href="https://myownhit.com/">myownhit.com</a></p></div>
+    <div class="acts"><button type="button" id="next">Next stop</button><a href="https://myownhit.com/start.html">Start my song</a></div>
+  </div>
+  <details class="about" id="about">
+    <summary>What is this?</summary>
+    <p>The My Own Hit Studio is a small 3D walk-through of how a custom song gets made. The stops:</p>
+    <ol>
+      <li><b>Tell your story</b>: Answer a few questions on the site, about five minutes, or reply to our email. You can even send a voice memo telling the story. No calls unless you want one.</li>
+      <li><b>Pick your style</b>: In the style you&#x27;ve always wanted.</li>
+      <li><b>English, Spanish, or both</b>: Spanish, English, or both in one song. Written in the language you choose by someone who speaks it, not translated by software.</li>
+      <li><b>You, or someone you love</b>: A song about you, or one for someone else: a wedding, a quinceañera, a birthday, a tribute. A song for the whole family works too, and so does one for your business.</li>
+      <li><b>How your song is made</b>: Your lyrics are written from what you tell us. The music is produced with modern AI tools, then a real person shapes it, checks every line, and finishes it.</li>
+      <li><b>What it costs</b>: Pay right after you send your story. If we can&#x27;t make your song, you get a full refund. <a href="https://myownhit.com/pricing.html">See pricing →</a></li>
+      <li><b>Hear demos first</b>: Not ready yet? Tap your style on the site and hear songs made the same way yours will be. <a href="https://myownhit.com/#listen">Listen →</a></li>
+      <li><b>Start my song</b>: It takes about five minutes. Not a song you like. A song about you, yours for life. <a href="https://myownhit.com/start.html">Start my song →</a></li>
+    </ol>
+    <p><a href="https://myownhit.com/">Back to myownhit.com</a></p>
+  </details>
+  <div class="bottom">
+    <div class="hint" id="hint"><kbd>W A S D</kbd> or arrows to walk · tap the floor to walk there · <b>Next stop</b> for the tour</div>
+    <div class="card" id="card" hidden>
+      <p class="kick" id="cKick"></p>
+      <h2 id="cName"></h2>
+      <p class="desc" id="cDesc"></p>
+      <ul id="cFacts"></ul>
+      <a class="go" id="cLink" href="#">Open</a>
+    </div>
+    <div class="fallback" id="fallback" hidden><p>This browser can't show the 3D studio. Everything in it is listed under "What is this?", or go straight to <a href="https://myownhit.com/start.html">Start my song</a>.</p></div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="world.js?v=20261024a"></script>
+<script>
+
+const STATIONS = [
+ {
+  "key": "mic",
+  "kick": "Stop 1 · The booth",
+  "name": "Tell your story",
+  "color": "#e4007c",
+  "desc": "Answer a few questions on the site, about five minutes, or reply to our email. You can even send a voice memo telling the story. No calls unless you want one.",
+  "facts": [
+   "About 5 minutes",
+   "A voice memo works too",
+   "Your real names, places and moments"
+  ]
+ },
+ {
+  "key": "crate",
+  "kick": "Stop 2 · The crate",
+  "name": "Pick your style",
+  "color": "#f6a821",
+  "desc": "In the style you've always wanted.",
+  "facts": [
+   "Corridos · Oldies · R&B · Country",
+   "Banda · Hip-hop · Cumbia · Rancheras",
+   "Soul · Rock · Baladas · Pop"
+  ]
+ },
+ {
+  "key": "speakers",
+  "kick": "Stop 3 · Two speakers",
+  "name": "English, Spanish, or both",
+  "color": "#e4007c",
+  "desc": "Spanish, English, or both in one song. Written in the language you choose by someone who speaks it, not translated by software.",
+  "facts": [
+   "English",
+   "Español",
+   "Or both in one song"
+  ]
+ },
+ {
+  "key": "gift",
+  "kick": "Stop 4 · Who it's for",
+  "name": "You, or someone you love",
+  "color": "#f6a821",
+  "desc": "A song about you, or one for someone else: a wedding, a quinceañera, a birthday, a tribute. A song for the whole family works too, and so does one for your business.",
+  "facts": [
+   "For me",
+   "For someone I love",
+   "For my business (ads, jingles)"
+  ]
+ },
+ {
+  "key": "desk",
+  "kick": "Stop 5 · The mixing desk",
+  "name": "How your song is made",
+  "color": "#e4007c",
+  "desc": "Your lyrics are written from what you tell us. The music is produced with modern AI tools, then a real person shapes it, checks every line, and finishes it.",
+  "facts": [
+   "We go over your story within 2–3 days",
+   "Most songs are ready 2–5 days after that",
+   "A 3–4 minute MP3 by email, yours to keep"
+  ]
+ },
+ {
+  "key": "price",
+  "kick": "Stop 6 · The price board",
+  "name": "What it costs",
+  "color": "#f6a821",
+  "desc": "Pay right after you send your story. If we can't make your song, you get a full refund.",
+  "facts": [
+   "One song: $47",
+   "Two songs: $87",
+   "Three songs: $127"
+  ],
+  "link": "https://myownhit.com/pricing.html",
+  "linkText": "See pricing →"
+ },
+ {
+  "key": "deck",
+  "kick": "Stop 7 · The turntable",
+  "name": "Hear demos first",
+  "color": "#e4007c",
+  "desc": "Not ready yet? Tap your style on the site and hear songs made the same way yours will be.",
+  "facts": [
+   "Demos in your style",
+   "Or get them sent to your inbox"
+  ],
+  "link": "https://myownhit.com/#listen",
+  "linkText": "Listen →"
+ },
+ {
+  "key": "door",
+  "kick": "The exit",
+  "name": "Start my song",
+  "color": "#f6a821",
+  "desc": "It takes about five minutes. Not a song you like. A song about you, yours for life.",
+  "facts": [
+   "Songs from $47",
+   "About 4–8 days total"
+  ],
+  "link": "https://myownhit.com/start.html",
+  "linkText": "Start my song →"
+ }
+];
+const BUILD = {
+  mic(T, g, h) { h.cyl(0.6, 0.7, 0.1, 0x111111, 0, 0.05, 0, g); h.cyl(0.06, 0.06, 2.6, 0x9a9aa8, 0, 1.35, 0, g, 12, { metalness: 0.7, roughness: 0.3 }); const head = h.sphere(0.32, 0x2b2b33, 0, 2.8, 0, g, { metalness: 0.6, roughness: 0.35 }); head.scale.y = 1.35; h.torus(0.4, 0.04, 0x9a9aa8, 0, 2.8, 0, g, { metalness: 0.7 }); h.sign([{t:'ON AIR', size:170, y:.52}], '#e4007c', '#ffffff', 1.8, 0.5, g, 0, 3.9, 0); },
+  crate(T, g, h) { h.box(2.6, 1, 1.2, 0x8a5a36, 0, 0.5, 0, g); const cols = [0xe4007c,0xf6a821,0x2b8cff,0x3ac47d,0xff6b3d,0x9b5cff,0xffd400,0x00b3a4,0xff3d7f,0x6d6dff,0xff9f1c,0x4cc9f0]; cols.forEach((c, i) => { const r = new T.Group(); r.position.set(-1.1 + (i % 6) * 0.44, 1.6 + Math.floor(i / 6) * 1.0, 0); g.add(r); const d = h.cyl(0.38, 0.38, 0.05, 0x111111, 0, 0, 0, r, 32); d.rotation.x = Math.PI / 2; const l = h.cyl(0.14, 0.14, 0.06, c, 0, 0, 0, r, 20); l.rotation.x = Math.PI / 2; }); h.sign([{t:'12 STYLES', size:160, y:.52}], '#f6a821', '#16133d', 2.2, 0.5, g, 0, 3.3, 0.1); },
+  speakers(T, g, h) { [[-0.9, 'EN'], [0.9, 'ES']].forEach(([x, t]) => { h.box(1.1, 2.2, 0.9, 0x1d1a4a, x, 1.1, 0, g); h.cyl(0.36, 0.36, 0.06, 0x111111, x, 1.5, 0.46, g, 28).rotation.x = Math.PI / 2; h.cyl(0.2, 0.2, 0.06, 0x111111, x, 0.6, 0.46, g, 24).rotation.x = Math.PI / 2; h.sign([{t, size:300, y:.55}], '#e4007c', '#ffffff', 0.9, 0.5, g, x, 2.55, 0.46); }); },
+  gift(T, g, h) { h.box(1.6, 1.3, 1.6, 0xe4007c, 0, 0.65, 0, g); h.box(1.7, 0.3, 1.7, 0xf6a821, 0, 1.35, 0, g); h.box(0.25, 1.32, 1.62, 0xf6a821, 0, 0.66, 0, g); const bow = h.torus(0.3, 0.09, 0xf6a821, 0, 1.75, 0, g); bow.rotation.y = Math.PI / 2; h.sign([{t:'FOR SOMEONE YOU LOVE', size:110, y:.52}], '#16133d', '#ffffff', 2.6, 0.45, g, 0, 2.6, 0.2); },
+  desk(T, g, h) { const d = h.box(2.8, 0.25, 1.4, 0x2d2870, 0, 1.1, 0, g); d.rotation.x = -0.25; h.box(2.6, 1.0, 1.2, 0x16133d, 0, 0.5, 0, g); for (let i = 0; i < 8; i++) { h.box(0.06, 0.04, 0.6, 0x9a9aa8, -1.05 + i * 0.3, 1.27, 0.05, g); h.box(0.18, 0.1, 0.12, i % 2 ? 0xe4007c : 0xf6a821, -1.05 + i * 0.3, 1.32, 0.05 + Math.sin(i) * 0.2, g); } h.sign([{t:'REAL PERSON CHECKS EVERY LINE', size:90, y:.52}], '#f6a821', '#16133d', 2.8, 0.42, g, 0, 2.3, 0.3); },
+  price(T, g, h) { h.box(0.15, 2.4, 0.15, 0x111111, -1.2, 1.2, 0, g); h.box(0.15, 2.4, 0.15, 0x111111, 1.2, 1.2, 0, g); h.sign([{t:'1 SONG  $47', size:140, y:.2}, {t:'2 SONGS  $87', size:140, y:.5}, {t:'3 SONGS  $127', size:140, y:.8}], '#fff4e6', '#16133d', 2.6, 1.6, g, 0, 2.9, 0.1); },
+  deck(T, g, h) { h.box(2.2, 0.9, 1.6, 0x2d2870, 0, 0.45, 0, g); const rec = new T.Group(); rec.position.set(-0.2, 0.95, 0); g.add(rec); h.cyl(0.65, 0.65, 0.04, 0x111111, 0, 0, 0, rec, 40); h.cyl(0.22, 0.22, 0.05, 0xe4007c, 0, 0, 0, rec, 24); h.spin(rec, 2.2); const arm = h.box(0.06, 0.06, 0.9, 0x9a9aa8, 0.75, 1.05, 0.1, g); arm.rotation.y = 0.5; h.sign([{t:'NOW PLAYING', size:150, y:.52}], '#e4007c', '#ffffff', 2.2, 0.5, g, 0, 1.9, 0.5); },
+  door(T, g, h) { h.box(2.4, 3.6, 0.3, 0x0b0a24, 0, 1.8, 0, g); const d = h.box(1.6, 3, 0.1, 0xe4007c, 0, 1.5, 0.15, g, { emissive: 0xe4007c, emissiveIntensity: 0.35 }); window.__door = d; h.sign([{t:'START MY SONG', size:140, y:.52}], '#f6a821', '#16133d', 2.6, 0.55, g, 0, 4.0, 0.2); }
+};
+const n = STATIONS.length;
+STATIONS.forEach((s, i) => { s.angle = -Math.PI * 0.82 + i * (Math.PI * 1.64 / (n - 1)); s.build = BUILD[s.key]; });
+startWorld({
+  stations: STATIONS, accent: '#e4007c', signFont: '"Shrikhand", "Instrument Sans", system-ui, sans-serif', signFontName: 'Shrikhand',
+  room: { radius: 17, floor: 0x3a2a24, floorRough: 0.55, wall: 0x1d1a4a, wallH: 6, skyLight: 0xb9a8ff, groundLight: 0x2a1530, hemi: 0.7, sun: 0.75, fog: 0x16133d },
+  walker: { body: 0xf6a821, cap: 0xe4007c },
+  scene(T, scene, h) {
+    // giant record in the middle of the room, turning
+    h.cyl(2.6, 2.8, 0.4, 0x0b0a24, 0, 0.2, 0); h.solid(-3, 3, -3, 3);
+    const big = new T.Group(); big.position.y = 0.45; scene.add(big);
+    h.cyl(2.4, 2.4, 0.08, 0x111111, 0, 0, 0, big, 64, { roughness: 0.35 }); h.cyl(0.8, 0.8, 0.1, 0xe4007c, 0, 0, 0, big, 40); h.cyl(0.08, 0.08, 0.14, 0xfff4e6, 0, 0, 0, big, 12);
+    for (let r = 1.0; r < 2.35; r += 0.18) { const groove = new T.Mesh(new T.TorusGeometry(r, 0.008, 4, 96), new T.MeshBasicMaterial({ color: 0x2a2a2a })); groove.rotation.x = Math.PI / 2; groove.position.y = 0.045; big.add(groove); }
+    h.spin(big, 0.5);
+    // neon strip around the wall
+    const strip = new T.Mesh(new T.TorusGeometry(17.4, 0.06, 6, 160), new T.MeshBasicMaterial({ color: 0xe4007c })); strip.rotation.x = Math.PI / 2; strip.position.y = 4.6; scene.add(strip);
+    const strip2 = new T.Mesh(new T.TorusGeometry(17.4, 0.04, 6, 160), new T.MeshBasicMaterial({ color: 0xf6a821 })); strip2.rotation.x = Math.PI / 2; strip2.position.y = 4.3; scene.add(strip2);
+    // records on the wall
+    for (let i = 0; i < 18; i++) { const a = (i - 8.5) * 0.19; const d = h.cyl(0.45, 0.45, 0.04, 0x111111, Math.sin(a) * 17.3, 3.2 + (i % 2) * 1.0, -Math.cos(a) * 17.3, scene, 32); d.castShadow = false; d.lookAt(0, d.position.y, 0); d.rotateX(Math.PI / 2); const lb = h.cyl(0.15, 0.15, 0.05, i % 3 ? 0xe4007c : 0xf6a821, 0, 0, 0, d, 20); lb.castShadow = false; }
+  },
+  tick(t) { if (window.__door) window.__door.material.emissiveIntensity = 0.3 + 0.2 * Math.sin(t * 2.5); }
+});
+
+</script>
+</body>
+</html>
